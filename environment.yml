@@ -1,0 +1,15 @@
+name: ml-income-predict-app
+channels:
+  - defaults
+  - conda-forge
+dependencies:
+  - python=3.8   
+  - scikit-learn
+  - pandas
+  - numpy
+  - pytest
+  - jupyter
+  - jupyterlab
+  - fastapi
+  - uvicorn
+  - ydata-profiling
