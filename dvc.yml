@@ -1,0 +1,8 @@
+stages:
+  train:
+    cmd: python ml/train_model.py -f data/census.csv
+    deps:
+      - ml/train_model.py
+      - data/census.csv
+    outs:
+      - models/model.pkl
