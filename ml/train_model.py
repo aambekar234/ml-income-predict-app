@@ -4,15 +4,28 @@ from data_lib import process_data
 from model import train_logistic_regression_model
 from model import train_random_forest_model
 import argparse
+import logging
+
+# logging.basicConfig(
+#     filename='../logs/application.log',
+#     level=logging.INFO,
+#     filemode='w',
+#     format='%(name)s - %(levelname)s - %(message)s')
 
 
-def train_model(classifier: str) -> None:
+def train_model(classifier: str, file_path: str) -> None:
     """ train model with provided classifier option
     Args:
         classifier (str): classfier option, either LR (Logistic Regression) or RF (Random Forest)
+        file_path (str): file path for the data csv file
     """
 
-    data = pd.read_csv("../data/census.csv", sep=', ')
+    try:
+        data = pd.read_csv(file_path, sep=', ')
+    except FileNotFoundError:
+        print("todo: fix logging")
+        # logging.log("Provided file path is not valid or file does not exist!")
+
     data = data.drop_duplicates()
     # Optional enhancement, use K-fold cross validation instead of a train-test split.
     train, test = train_test_split(
@@ -38,7 +51,7 @@ def train_model(classifier: str) -> None:
     X_train, X_test, y_train, y_test = train_test_split(
         X_train, y_train, test_size=0.2, random_state=42)
 
-    if clasifier == "RF":
+    if classifier == "RF":
         train_random_forest_model(X_train, X_test, y_train, y_test)
     else:
         train_logistic_regression_model(X_train, X_test, y_train, y_test)
@@ -50,6 +63,11 @@ if __name__ == "__main__":
         description='Train model, either with Logistic Regression or Random Forest!')
 
     parser.add_argument('-c', '--classifier', type=str,
-                        default='LR', help='Classifier name, either LR or RF.')
+                        default='LR', help='Classifier name, either LR or RF')
+    parser.add_argument('-f', '--file', type=str,
+                        default='LR', help='Path to data file.')
+
     args = parser.parse_args()
-    clasifier = args.classifier
+    classifier = args.classifier
+    file_path = args.file
+    train_model(classifier, file_path)

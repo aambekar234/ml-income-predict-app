@@ -1,2 +1,4 @@
 todo.txt
 .ipynb*
+ml/__pycache__/
+keys

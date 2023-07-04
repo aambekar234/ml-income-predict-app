@@ -103,7 +103,7 @@ def train_logistic_regression_model(X_train, X_test, y_train, y_test) -> Logisti
     y_test_preds = lrc.predict(X_test)
     report = classification_report(y_test, y_test_preds)
     print(report)
-    save_model(lrc, "logistic_model.pkl", "./models/")
+    save_model(lrc, "model.pkl", "./models/")
 
 
 def train_random_forest_model(X_train, X_test, y_train, y_test) -> GridSearchCV:
@@ -131,4 +131,4 @@ def train_random_forest_model(X_train, X_test, y_train, y_test) -> GridSearchCV:
     y_test_preds = cv_rfc.best_estimator_.predict(X_test)
     report = classification_report(y_test, y_test_preds)
     print(report)
-    save_model(cv_rfc.best_estimator_, "rfc_model.pkl", "./models/")
+    save_model(cv_rfc.best_estimator_, "model.pkl", "./models/")
