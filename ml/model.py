@@ -6,7 +6,7 @@ from sklearn.model_selection import GridSearchCV
 from sklearn.ensemble import RandomForestClassifier
 import joblib
 import os
-
+artifacts_path = "./artifacts/"
 
 # Optional: implement hyperparameter tuning.
 
@@ -69,21 +69,17 @@ def inference(model, X):
     pass
 
 
-def save_model(model, model_name: str, dir_path: str):
+def save_model(model):
     """ Save the model object with model_name at the provided path
 
     Args:
         model : model/classifier object
-        model_name (str): name of the model
-        dir_path (str): directory path
     Returns:
         None
     """
-    if not os.path.exists(dir_path):
-        os.makedirs(dir_path)
-
-    file_path = os.path.join(dir_path, model_name)
-    joblib.dump(model, file_path)
+    if not os.path.exists(artifacts_path):
+        os.makedirs(artifacts_path)
+    joblib.dump(model, os.path.join(artifacts_path, "model.pkl"))
 
 
 def train_logistic_regression_model(X_train, X_test, y_train, y_test) -> LogisticRegression:
@@ -103,7 +99,7 @@ def train_logistic_regression_model(X_train, X_test, y_train, y_test) -> Logisti
     y_test_preds = lrc.predict(X_test)
     report = classification_report(y_test, y_test_preds)
     print(report)
-    save_model(lrc, "model.pkl", "./models/")
+    save_model(lrc)
 
 
 def train_random_forest_model(X_train, X_test, y_train, y_test) -> GridSearchCV:
@@ -131,4 +127,4 @@ def train_random_forest_model(X_train, X_test, y_train, y_test) -> GridSearchCV:
     y_test_preds = cv_rfc.best_estimator_.predict(X_test)
     report = classification_report(y_test, y_test_preds)
     print(report)
-    save_model(cv_rfc.best_estimator_, "model.pkl", "./models/")
+    save_model(cv_rfc.best_estimator_)

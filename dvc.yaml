@@ -13,11 +13,11 @@ stages:
       - ./artifacts/category_encoder.joblib
       - ./artifacts/binary_encoder.joblib
 
-
   train:
-    cmd: python ml/train_model.py -f data/census.csv
+    cmd: python ml/train_model.py 
     deps:
       - ml/train_model.py
-      - data/census.csv
+      - ./artifacts/data_train.joblib
+      - ./artifacts/labels_train.joblib
     outs:
-      - models/model.pkl
+      - ./artifacts/model.pkl

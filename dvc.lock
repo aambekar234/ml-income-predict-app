@@ -3,19 +3,23 @@ stages:
   train:
     cmd: python ml/train_model.py -f data/census.csv
     deps:
-    - path: data/census.csv
+    - path: ./artifacts/data_train.joblib
       hash: md5
-      md5: 145de00f6e6053d3f7044628f9a5b5ff
-      size: 3974474
+      md5: b94aaaf2c38655b7852efce0bf297d97
+      size: 22489281
+    - path: ./artifacts/labels_train.joblib
+      hash: md5
+      md5: f351d751767114422443d5c6581af59e
+      size: 208457
     - path: ml/train_model.py
       hash: md5
-      md5: 75b529049ca6cf9309f00a7f0fb75baa
-      size: 2489
+      md5: 3f8526f1045e8ff658bb8885005966fa
+      size: 1750
     outs:
-    - path: models/model.pkl
+    - path: ./artifacts/model.pkl
       hash: md5
-      md5: 35aa1795358a61c5387c442689849c94
-      size: 1711
+      md5: 4edda0bcfd2403e9b146f9fd7f2172ee
+      size: 1695
   process_date:
     cmd: python ml/process_data
     deps:
