@@ -9,10 +9,82 @@ stages:
       size: 3974474
     - path: ml/train_model.py
       hash: md5
-      md5: 6629c7aecdcd2ab23e759dfd94e00296
-      size: 2379
+      md5: 75b529049ca6cf9309f00a7f0fb75baa
+      size: 2489
     outs:
     - path: models/model.pkl
       hash: md5
       md5: 35aa1795358a61c5387c442689849c94
       size: 1711
+  process_date:
+    cmd: python ml/process_data
+    deps:
+    - path: ./data/census.csv
+      hash: md5
+      md5: 145de00f6e6053d3f7044628f9a5b5ff
+      size: 3974474
+    - path: ./ml/process_data.py
+      hash: md5
+      md5: d5e690eda79cdc543727d1495e6ea6d7
+      size: 4148
+    outs:
+    - path: ./artifacts/binary_encoder.joblib
+      hash: md5
+      md5: 959314a9a3995c4327ab0434c497ad78
+      size: 142
+    - path: ./artifacts/category_encoder.joblib
+      hash: md5
+      md5: 8fc374038fdbcf74227350a942a5adf0
+      size: 243
+    - path: ./artifacts/data_test.joblib
+      hash: md5
+      md5: 32b17d2623085c0ad4ee12ecf011c9d4
+      size: 5519009
+    - path: ./artifacts/data_train.joblib
+      hash: md5
+      md5: b94aaaf2c38655b7852efce0bf297d97
+      size: 22489281
+    - path: ./artifacts/labels_test.joblib
+      hash: md5
+      md5: accc3bf6af6e6a36cb84801d7911f8ee
+      size: 52289
+    - path: ./artifacts/labels_train.joblib
+      hash: md5
+      md5: f351d751767114422443d5c6581af59e
+      size: 208457
+  process_data:
+    cmd: python ml/process_data
+    deps:
+    - path: ./data/census.csv
+      hash: md5
+      md5: 145de00f6e6053d3f7044628f9a5b5ff
+      size: 3974474
+    - path: ./ml/process_data.py
+      hash: md5
+      md5: d5e690eda79cdc543727d1495e6ea6d7
+      size: 4148
+    outs:
+    - path: ./artifacts/binary_encoder.joblib
+      hash: md5
+      md5: 959314a9a3995c4327ab0434c497ad78
+      size: 142
+    - path: ./artifacts/category_encoder.joblib
+      hash: md5
+      md5: 8fc374038fdbcf74227350a942a5adf0
+      size: 243
+    - path: ./artifacts/data_test.joblib
+      hash: md5
+      md5: 32b17d2623085c0ad4ee12ecf011c9d4
+      size: 5519009
+    - path: ./artifacts/data_train.joblib
+      hash: md5
+      md5: b94aaaf2c38655b7852efce0bf297d97
+      size: 22489281
+    - path: ./artifacts/labels_test.joblib
+      hash: md5
+      md5: accc3bf6af6e6a36cb84801d7911f8ee
+      size: 52289
+    - path: ./artifacts/labels_train.joblib
+      hash: md5
+      md5: f351d751767114422443d5c6581af59e
+      size: 208457
