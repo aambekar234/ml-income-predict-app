@@ -16,6 +16,10 @@ stages:
       md5: af9cf6a77325454aad14e73355e1bec9
       size: 1813
     outs:
+    - path: ./artifacts/metrics.json
+      hash: md5
+      md5: 5ab37c7aa83920f5ac86856ba25c53b1
+      size: 237
     - path: ./artifacts/model.pkl
       hash: md5
       md5: a8f6f82dd6d28db1b43f122f0644f6f4

@@ -14,3 +14,4 @@ dependencies:
   - uvicorn
   - ydata-profiling
   - dvc=3.4.0
+  - dvc-gs

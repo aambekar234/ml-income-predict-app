@@ -5,3 +5,4 @@
 /category_encoder.joblib
 /binary_encoder.joblib
 /model.pkl
+/metrics.json

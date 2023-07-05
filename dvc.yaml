@@ -20,3 +20,5 @@ stages:
       - ./artifacts/labels_train.joblib
     outs:
       - ./artifacts/model.pkl
+    metrics:
+      - ./artifacts/metrics.json
