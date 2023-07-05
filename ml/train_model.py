@@ -1,19 +1,18 @@
-from sklearn.model_selection import train_test_split
-import pandas as pd
-from model import train_logistic_regression_model
-from model import train_random_forest_model
-import argparse
-import logging
-import joblib
+import dvc.api
 import os
+import joblib
+import argparse
+from model import train_random_forest_model
+from model import train_logistic_regression_model
+import pandas as pd
+from sklearn.model_selection import train_test_split
 
-# logging.basicConfig(
-#     filename='../logs/application.log',
-#     level=logging.INFO,
-#     filemode='w',
-#     format='%(name)s - %(levelname)s - %(message)s')
+import logging.config
+logging.config.fileConfig("log_config.ini")
+logger = logging.getLogger()
 
-artifacts_path = "./artifacts/"
+params = dvc.api.params_show()
+artifacts_path = params['artifacts-path']
 
 
 def train_model(classifier: str) -> None:
@@ -28,7 +27,8 @@ def train_model(classifier: str) -> None:
         y_train = joblib.load(os.path.join(
             artifacts_path, "labels_test.joblib"))
     except FileNotFoundError:
-        print("Artifatcs not found. Please run the process data module first!!")
+        logger.error(
+            "Artifatcs not found. Please run the process data module first!!")
         return
 
     # Split the data into training and testing sets
@@ -42,7 +42,6 @@ def train_model(classifier: str) -> None:
 
 
 if __name__ == "__main__":
-
     parser = argparse.ArgumentParser(
         description='Train model, either with Logistic Regression or Random Forest!')
 
@@ -51,4 +50,5 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
     classifier = args.classifier
+    logger.info(f"Training a model with {classifier} classifier option.")
     train_model(classifier)

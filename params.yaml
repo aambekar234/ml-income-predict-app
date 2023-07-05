@@ -1,0 +1,3 @@
+artifacts-path: ./artifacts/
+logfile-path: ./logs/application.logs
+model-choice: LR

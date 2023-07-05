@@ -1,7 +1,6 @@
 stages:
   process_data:
-    cmd: python ml/process_data
-
+    cmd: python ml/process_data.py
     deps:
       - ./ml/process_data.py
       - ./data/census.csv
@@ -16,7 +15,7 @@ stages:
   train:
     cmd: python ml/train_model.py 
     deps:
-      - ml/train_model.py
+      - ./ml/train_model.py
       - ./artifacts/data_train.joblib
       - ./artifacts/labels_train.joblib
     outs:

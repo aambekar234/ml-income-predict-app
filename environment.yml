@@ -13,3 +13,4 @@ dependencies:
   - fastapi
   - uvicorn
   - ydata-profiling
+  - dvc=3.4.0

@@ -1,25 +1,25 @@
 schema: '2.0'
 stages:
   train:
-    cmd: python ml/train_model.py -f data/census.csv
+    cmd: python ml/train_model.py
     deps:
     - path: ./artifacts/data_train.joblib
       hash: md5
-      md5: b94aaaf2c38655b7852efce0bf297d97
-      size: 22489281
+      md5: fc70e77f41e0d217f415c2787e3167ea
+      size: 22281049
     - path: ./artifacts/labels_train.joblib
       hash: md5
-      md5: f351d751767114422443d5c6581af59e
+      md5: ea60901a0fa6c0d4ca71c3187e8c6ce1
       size: 208457
-    - path: ml/train_model.py
+    - path: ./ml/train_model.py
       hash: md5
-      md5: 3f8526f1045e8ff658bb8885005966fa
-      size: 1750
+      md5: af9cf6a77325454aad14e73355e1bec9
+      size: 1813
     outs:
     - path: ./artifacts/model.pkl
       hash: md5
-      md5: 4edda0bcfd2403e9b146f9fd7f2172ee
-      size: 1695
+      md5: a8f6f82dd6d28db1b43f122f0644f6f4
+      size: 1711
   process_date:
     cmd: python ml/process_data
     deps:
@@ -57,7 +57,7 @@ stages:
       md5: f351d751767114422443d5c6581af59e
       size: 208457
   process_data:
-    cmd: python ml/process_data
+    cmd: python ml/process_data.py
     deps:
     - path: ./data/census.csv
       hash: md5
@@ -65,8 +65,8 @@ stages:
       size: 3974474
     - path: ./ml/process_data.py
       hash: md5
-      md5: d5e690eda79cdc543727d1495e6ea6d7
-      size: 4148
+      md5: 3890cf351ded07bd8a73ee92798ffdf1
+      size: 4263
     outs:
     - path: ./artifacts/binary_encoder.joblib
       hash: md5
@@ -78,17 +78,17 @@ stages:
       size: 243
     - path: ./artifacts/data_test.joblib
       hash: md5
-      md5: 32b17d2623085c0ad4ee12ecf011c9d4
-      size: 5519009
+      md5: 415532b65647ac60e55a61c2ee88fc17
+      size: 5623137
     - path: ./artifacts/data_train.joblib
       hash: md5
-      md5: b94aaaf2c38655b7852efce0bf297d97
-      size: 22489281
+      md5: fc70e77f41e0d217f415c2787e3167ea
+      size: 22281049
     - path: ./artifacts/labels_test.joblib
       hash: md5
-      md5: accc3bf6af6e6a36cb84801d7911f8ee
+      md5: 223f69354b91034a83381a77d72f746d
       size: 52289
     - path: ./artifacts/labels_train.joblib
       hash: md5
-      md5: f351d751767114422443d5c6581af59e
+      md5: ea60901a0fa6c0d4ca71c3187e8c6ce1
       size: 208457

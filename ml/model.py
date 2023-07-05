@@ -6,7 +6,10 @@ from sklearn.model_selection import GridSearchCV
 from sklearn.ensemble import RandomForestClassifier
 import joblib
 import os
-artifacts_path = "./artifacts/"
+import dvc.api
+params = dvc.api.params_show()
+artifacts_path = params['artifacts-path']
+
 
 # Optional: implement hyperparameter tuning.
 

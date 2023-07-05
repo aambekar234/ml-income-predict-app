@@ -1,3 +1,4 @@
+import logging.config
 import numpy as np
 from sklearn.preprocessing import LabelBinarizer, OneHotEncoder
 import pandas as pd
@@ -5,7 +6,12 @@ import joblib
 import os
 import argparse
 from sklearn.model_selection import train_test_split
-artifacts_path = "./artifacts/"
+import dvc.api
+params = dvc.api.params_show()
+artifacts_path = params['artifacts-path']
+
+logging.config.fileConfig("log_config.ini")
+logger = logging.getLogger()
 
 
 def process_data(X, categorical_features=[], label=None, training=True):
@@ -38,8 +44,6 @@ def process_data(X, categorical_features=[], label=None, training=True):
     -------
     None
     """
-    X.columns = X.columns.str.lower().str.replace(' ', '')
-
     if not os.path.exists(artifacts_path):
         os.makedirs(artifacts_path)
 
@@ -97,7 +101,8 @@ if __name__ == "__main__":
     file_path = args.file
 
     try:
-        data = pd.read_csv(file_path, sep=', ')
+        data = pd.read_csv(file_path)
+        data.columns = data.columns.str.lower().str.replace(' ', '')
         data = data.drop_duplicates()
         # Optional enhancement, use K-fold cross validation instead of a train-test split.
         train, test = train_test_split(
@@ -120,5 +125,4 @@ if __name__ == "__main__":
         process_data(test, cat_features, 'salary', False)
 
     except FileNotFoundError:
-        print("todo: fix logging")
-        # logging.log("Provided file path is not valid or file does not exist!")
+        logger.error("Provided file path is not valid or file does not exist!")
