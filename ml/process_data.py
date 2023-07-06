@@ -73,10 +73,9 @@ if __name__ == "__main__":
         data.columns = data.columns.str.lower().str.replace(' ', '')
         data = data.drop_duplicates()
         # Optional enhancement, use K-fold cross validation instead of a train-test split.
-
+        X = df.drop("education", axis=1)
         cat_features = [
             "workclass",
-            "education",
             "marital-status",
             "occupation",
             "relationship",

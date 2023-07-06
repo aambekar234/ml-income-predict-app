@@ -1,9 +1,14 @@
+from preprocessing import preprocess_data
 from fastapi import FastAPI
 from pydantic import BaseModel
+import joblib
+import os
+import dvc.api
+params = dvc.api.params_show()
+artifacts_path = params['artifacts-path']
 
-# Import your model and any necessary preprocessing functions
-from your_model_module import YourModel
-from preprocessing import preprocess_data
+logging.config.fileConfig("log_config.ini")
+logger = logging.getLogger()
 
 app = FastAPI()
 
@@ -15,9 +20,8 @@ class PredictionRequest(BaseModel):
 
 
 # Instantiate your model
-model = YourModel()
-
-# Define the endpoint for the POST request
+model = joblib.load(os.path.join(artifacts_path, 'model.pkl'))
+encoder = joblib.load(os.path.join(artifacts_path, 'category_encoder.joblib'))
 
 
 @app.get("/")
