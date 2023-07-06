@@ -14,7 +14,7 @@ logging.config.fileConfig("log_config.ini")
 logger = logging.getLogger()
 
 
-def process_data(X, categorical_features=[], label=None, training=True):
+def process_data(X, categorical_features, label, training):
     """ Process the data used in the machine learning pipeline.
 
     Processes the data using one hot encoding for the categorical features and a
@@ -47,11 +47,8 @@ def process_data(X, categorical_features=[], label=None, training=True):
     if not os.path.exists(artifacts_path):
         os.makedirs(artifacts_path)
 
-    if label is not None:
-        y = X[label]
-        X = X.drop([label], axis=1)
-    else:
-        y = np.array([])
+    y = X[label]
+    X = X.drop([label], axis=1)
 
     X_categorical = X[categorical_features].values
     X_continuous = X.drop(*[categorical_features], axis=1)
