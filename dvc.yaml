@@ -16,9 +16,20 @@ stages:
     cmd: python ml/train_model.py 
     deps:
       - ./ml/train_model.py
+      - ./ml/model.py
       - ./artifacts/data_train.joblib
       - ./artifacts/labels_train.joblib
     outs:
       - ./artifacts/model.pkl
     metrics:
-      - ./artifacts/metrics.json
+      - ./artifacts/metrics_train.json
+
+  evaluate:
+    cmd: python ml/evaluate.py
+    deps:
+      - ./artifacts/data_test.joblib
+      - ./artifacts/labels_test.joblib
+      - ./ml/evaluate.py
+      - ./ml/model.py
+    metrics:
+      - ./artifacts/metrics_evaluate.json

@@ -11,6 +11,10 @@ stages:
       hash: md5
       md5: ea60901a0fa6c0d4ca71c3187e8c6ce1
       size: 208457
+    - path: ./ml/model.py
+      hash: md5
+      md5: e51f01014bc3a732e89e09fe30cb0c69
+      size: 4144
     - path: ./ml/train_model.py
       hash: md5
       md5: af9cf6a77325454aad14e73355e1bec9
@@ -18,8 +22,8 @@ stages:
     outs:
     - path: ./artifacts/metrics.json
       hash: md5
-      md5: 5ab37c7aa83920f5ac86856ba25c53b1
-      size: 237
+      md5: fc5bf749af6d02d2ade8464dade881ea
+      size: 110
     - path: ./artifacts/model.pkl
       hash: md5
       md5: a8f6f82dd6d28db1b43f122f0644f6f4

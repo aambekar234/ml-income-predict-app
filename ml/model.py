@@ -101,7 +101,7 @@ def train_logistic_regression_model(X_train, X_test, y_train, y_test) -> Logisti
     lrc = LogisticRegression(solver='lbfgs', max_iter=3000)
     lrc.fit(X_train, y_train)
     y_test_preds = lrc.predict(X_test)
-    generate_report(y_test, y_test_preds)
+    generate_report(y_test, y_test_preds, "metrics_train.json")
     save_model(lrc)
 
 
@@ -128,18 +128,20 @@ def train_random_forest_model(X_train, X_test, y_train, y_test) -> GridSearchCV:
     cv_rfc = GridSearchCV(estimator=rfc, param_grid=param_grid, cv=5)
     cv_rfc.fit(X_train, y_train)
     y_test_preds = cv_rfc.best_estimator_.predict(X_test)
-    generate_report(y_test, y_test_preds)
+    generate_report(y_test, y_test_preds, "metrics_train.json")
     save_model(cv_rfc.best_estimator_)
 
 
-def generate_report(y_test, y_test_preds) -> None:
+def generate_report(y_test, y_test_preds, filename: str) -> None:
     """_summary_
 
     Args:
-        y_test (_type_): _description_
-        y_test_preds (_type_): _description_
+        y_test: y test numpy array
+        y_test_preds: y test numpy array prediction
+        filename (str): metrics file name
     """
-    report = classification_report(y_test, y_test_preds, output_dict=True)
+    report = classification_report(
+        y_test, y_test_preds, output_dict=True)
     print(report)
     new_report = {}
     new_report['accuracy'] = report['accuracy']
@@ -147,5 +149,5 @@ def generate_report(y_test, y_test_preds) -> None:
     new_report['1'] = {}
     new_report['0']['f1-score'] = report['0']['f1-score']
     new_report['1']['f1-score'] = report['1']['f1-score']
-    with open(os.path.join(artifacts_path, 'metrics.json'), mode="w") as fp:
+    with open(os.path.join(artifacts_path, filename), mode="w") as fp:
         json.dump(new_report, fp)
