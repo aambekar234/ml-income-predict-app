@@ -14,76 +14,47 @@ logging.config.fileConfig("log_config.ini")
 logger = logging.getLogger()
 
 
-def process_data(X, categorical_features, label, training):
-    """ Process the data used in the machine learning pipeline.
+def process_data(df, categorical_features, label):
+    """_summary_
 
-    Processes the data using one hot encoding for the categorical features and a
-    label binarizer for the labels. This can be used in either training or
-    inference/validation.
+    Args:
+        df (pd.dataframe): dataframe
+        categorical_features ([]): pytho list of categorical columns
+        label (_type_): label column as string in dataframe df
 
-    Note: depending on the type of model used, you may want to add in functionality that
-    scales the continuous data.
-
-    Inputs
-    ------
-    X : pd.DataFrame
-        Dataframe containing the features and label. Columns in `categorical_features`
-    categorical_features: list[str]
-        List containing the names of the categorical features (default=[])
-    label : str
-        Name of the label column in `X`. If None, then an empty array will be returned
-        for y (default=None)
-    training : bool
-        Indicator if training mode or inference/validation mode.
-    encoder : sklearn.preprocessing._encoders.OneHotEncoder
-        Trained sklearn OneHotEncoder, only used if training=False.
-    lb : sklearn.preprocessing._label.LabelBinarizer
-        Trained sklearn LabelBinarizer, only used if training=False.
-
-    Returns
-    -------
-    None
+    Returns:
+        X (numpy.ndarray): numpy array of data
+        y (numpy.ndarray): numpy array of labels
     """
     if not os.path.exists(artifacts_path):
         os.makedirs(artifacts_path)
 
-    y = X[label]
-    X = X.drop([label], axis=1)
+    y = df[label]
+    X = df.drop(label, axis=1)
 
     X_categorical = X[categorical_features].values
-    X_continuous = X.drop(*[categorical_features], axis=1)
+    X_continuous = X.drop(categorical_features, axis=1)
+    X_continuous = X_continuous.values
     encoder, lb = None, None
 
-    if training is True:
-        encoder = OneHotEncoder(sparse=False, handle_unknown="ignore")
-        lb = LabelBinarizer()
-        # save encoder artifacts
-        joblib.dump(encoder, os.path.join(
-            artifacts_path, 'category_encoder.joblib'))
-        joblib.dump(lb, os.path.join(
-            artifacts_path, 'binary_encoder.joblib'))
-
-    else:
-        # load encoders
-        encoder = joblib.load(os.path.join(
-            artifacts_path, 'category_encoder.joblib'))
-        lb = joblib.load(os.path.join(
-            artifacts_path, 'binary_encoder.joblib'))
+    encoder = OneHotEncoder(handle_unknown="ignore", sparse_output=False)
+    lb = LabelBinarizer()
 
     X_categorical = encoder.fit_transform(X_categorical)
-    X = np.concatenate([X_continuous, X_categorical], axis=1)
+    logger.info(
+        f"Categorical features shape - {X_categorical.shape}, Numerical features shape - {X_continuous.shape}")
+    X = np.concatenate((X_categorical, X_continuous), axis=1)
+    logger.info(
+        f"Shape of training data after stitching categorical and numerical features - {X.shape}")
     y = lb.fit_transform(y.values).ravel()
 
-    if training:
-        joblib.dump(X, os.path.join(
-            artifacts_path, 'data_train.joblib'))
-        joblib.dump(y, os.path.join(
-            artifacts_path, 'labels_train.joblib'))
-    else:
-        joblib.dump(X, os.path.join(
-            artifacts_path, 'data_test.joblib'))
-        joblib.dump(y, os.path.join(
-            artifacts_path, 'labels_test.joblib'))
+    # save encoder artifacts so that it can be used during inference
+    joblib.dump(encoder, os.path.join(
+        artifacts_path, 'category_encoder.joblib'))
+    joblib.dump(lb, os.path.join(
+        artifacts_path, 'binary_encoder.joblib'))
+
+    return X, y
 
 
 if __name__ == "__main__":
@@ -102,8 +73,6 @@ if __name__ == "__main__":
         data.columns = data.columns.str.lower().str.replace(' ', '')
         data = data.drop_duplicates()
         # Optional enhancement, use K-fold cross validation instead of a train-test split.
-        train, test = train_test_split(
-            data, test_size=0.20, stratify=data['salary'])
 
         cat_features = [
             "workclass",
@@ -115,11 +84,19 @@ if __name__ == "__main__":
             "sex",
             "native-country",
         ]
+        X, y = process_data(data, cat_features, 'salary')
 
-        # generates training artifacts
-        process_data(train, cat_features, 'salary', True)
-        # generates testing artifacts
-        process_data(test, cat_features, 'salary', False)
+        X_train, X_test, y_train, y_test = train_test_split(
+            X, y, test_size=0.20, stratify=data['salary'])
+
+        # save the test, train artifacts
+        joblib.dump(X_train, os.path.join(artifacts_path, 'data_train.joblib'))
+        joblib.dump(X_test, os.path.join(artifacts_path, 'data_test.joblib'))
+        joblib.dump(y_train, os.path.join(
+            artifacts_path, 'labels_train.joblib'))
+        joblib.dump(y_test, os.path.join(artifacts_path, 'labels_test.joblib'))
+        logger.info(f"Shape of training artifact is {X_train.shape}")
+        logger.info(f"Shape of testing artifact is {X_test.shape}")
 
     except FileNotFoundError:
         logger.error("Provided file path is not valid or file does not exist!")
