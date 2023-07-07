@@ -33,21 +33,27 @@ numerical_features = [
     "hours-per-week"
 ]
 
+
 def save_category_encoder(df):
     """ creates One hot encoder of category columns and saves the encoder
     Args:
         df (pandas.DataFrame):
     Return:
-        None 
+        None
     """
     X_categorical = df[categorical_features].values
     encoder = OneHotEncoder(handle_unknown="ignore", sparse_output=False)
     encoder.fit(X_categorical)
-    joblib.dump(encoder, os.path.join(artifacts_path, 'category_encoder.joblib'))
+    joblib.dump(
+        encoder,
+        os.path.join(
+            artifacts_path,
+            'category_encoder.joblib'))
+
 
 def process_data(df, label=None, inference=False):
-    """ This functions encodes the category columns into one hot encoding and 
-        creates new dataframe with numerical only data for purpose of training 
+    """ This functions encodes the category columns into one hot encoding and
+        creates new dataframe with numerical only data for purpose of training
         later in the train piepline.
 
     Args:
@@ -71,9 +77,9 @@ def process_data(df, label=None, inference=False):
     X_numerical = X[numerical_features].values
     lb = LabelBinarizer()
     encoder = joblib.load(os.path.join(
-            artifacts_path, 'category_encoder.joblib'))
+        artifacts_path, 'category_encoder.joblib'))
 
-    if inference == False:
+    if not inference:
         y = lb.fit_transform(y.values).ravel()
 
     X_categorical = encoder.transform(X_categorical)
@@ -87,8 +93,9 @@ def process_data(df, label=None, inference=False):
 
     return X, y
 
-def combine_columns_for_stratify(df, columns:[]):
-    """ This function combine the data frame columns which need to stratify 
+
+def combine_columns_for_stratify(df, columns: []):
+    """ This function combine the data frame columns which need to stratify
     into same single column. It return the dataframe with the combined column
 
     Args:
@@ -97,15 +104,30 @@ def combine_columns_for_stratify(df, columns:[]):
         columns ([]): columns to stratify
 
     Returns:
-        pd.DataFrame: pandas dataframe 
+        pd.DataFrame: pandas dataframe
     """
     combined_column = df[columns[0]].astype(str)
 
-    for i in range(1,len(columns)):
+    for i in range(1, len(columns)):
         combined_column += df[columns[i]].astype(str)
 
-    df['combined_column'] = combined_column
+    unique_counts = combined_column.value_counts()
+
+    # Convert to DataFrame
+    unique_counts_df = unique_counts.to_frame().reset_index()
+    unique_counts_df.columns = ['Element', 'Count']
+
+    # Get the minimum count
+    minimum_count = unique_counts_df['Count'].min()
+    if minimum_count > 1:
+        df['combined_column'] = combined_column
+    else:
+        df['combined_column'] = df['salary']
+        logger.info(
+            "The provided stratify configuration is incorrect, method will \
+            stratify by the label now.")
     return df
+
 
 if __name__ == "__main__":
 
@@ -116,7 +138,7 @@ if __name__ == "__main__":
     parser.add_argument('-f', '--file', type=str,
                         default='./data/census.csv', help='Path to data file.')
     parser.add_argument('-s', '--stratify', nargs='+',
-                        default=['salary'], 
+                        default=['salary'],
                         help='List of columns as string to stratify the data.')
 
     args = parser.parse_args()
@@ -131,7 +153,7 @@ if __name__ == "__main__":
 
         data = combine_columns_for_stratify(data, columns)
         train, test = train_test_split(
-            data, 
+            data,
             test_size=0.20,
             stratify=data['combined_column'],
             random_state=100)
