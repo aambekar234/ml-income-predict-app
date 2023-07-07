@@ -3,3 +3,4 @@ todo.txt
 ml/__pycache__/
 keys/*
 logs/*
+.vscode
