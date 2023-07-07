@@ -1,5 +1,5 @@
 artifacts-path: ./artifacts/
 logfile-path: ./logs/application.logs
 
-model: RF
-stratify: salary race
+model: LR
+stratify: salary native-country
