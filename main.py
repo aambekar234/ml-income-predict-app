@@ -1,9 +1,12 @@
-from preprocessing import preprocess_data
 from fastapi import FastAPI
 from pydantic import BaseModel
 import joblib
 import os
 import dvc.api
+from ml.process_data import process_data
+import logging
+import pandas as pd
+
 params = dvc.api.params_show()
 artifacts_path = params['artifacts-path']
 
@@ -16,7 +19,19 @@ app = FastAPI()
 
 
 class PredictionRequest(BaseModel):
-    data: str
+    age: int
+    workclass: str
+    fnlgt: int
+    education: str
+    marital_status: str
+    occupation: str
+    relationship: str
+    race: str
+    sex: str
+    capital_gain: int
+    capital_loss: int
+    hours_per_week: int
+    native_country: str
 
 
 # Instantiate your model
@@ -31,14 +46,33 @@ def welcome():
 
 @app.post("/predict")
 def predict(request: PredictionRequest):
-    # Preprocess the input data
-    preprocessed_data = preprocess_data(request.data)
 
-    # Perform the model inference
-    prediction = model.predict(preprocessed_data)
+    logger.info(f"Received post request {request}")
+    # construct dataframe from request
+    try:
+        df = pd.DataFrame(
+            {'age': [request.age], 'workclass': [request.workclass],
+             'fnlgt': [request.fnlgt],
+             'education': [request.education],
+             'marital-status': [request.marital_status],
+             'occupation': [request.occupation],
+             'relationship': [request.relationship], 'race': [request.race],
+             'sex': [request.sex], 'capital-gain': [request.capital_gain],
+             'capital-loss': [request.capital_loss],
+             'hours-per-week': [request.hours_per_week],
+             'native-country': [request.native_country]})
 
-    # Return the prediction
-    return {"prediction": prediction}
+        X, y = process_data(df, label=None, training=False)
+
+        # Perform the model inference
+        prediction = model.predict(X)
+        logger.info(f"Prediction is {prediction}")
+        # Return the prediction
+        return {f"prediction is {prediction[0]}"}
+
+    except Exception as e:
+        logger.info("Some exception happened!!!!")
+        logger.error(str(e))
 
 
 # Run the FastAPI server

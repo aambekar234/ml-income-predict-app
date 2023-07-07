@@ -10,7 +10,6 @@ stages:
       - ./artifacts/data_test.joblib
       - ./artifacts/labels_test.joblib
       - ./artifacts/category_encoder.joblib
-      - ./artifacts/binary_encoder.joblib
 
   train:
     cmd: python ml/train_model.py 

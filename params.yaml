@@ -1,3 +1,6 @@
 artifacts-path: ./artifacts/
 logfile-path: ./logs/application.logs
 model-choice: LR
+
+process_data:
+  stratify: salary native-country

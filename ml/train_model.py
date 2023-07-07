@@ -4,7 +4,6 @@ import joblib
 import argparse
 from model import train_random_forest_model
 from model import train_logistic_regression_model
-import pandas as pd
 from sklearn.model_selection import train_test_split
 
 import logging.config
@@ -18,7 +17,8 @@ artifacts_path = params['artifacts-path']
 def train_model(classifier: str) -> None:
     """ train model with provided classifier option
     Args:
-        classifier (str): classfier option, either LR (Logistic Regression) or RF (Random Forest)
+        classifier (str): classfier option, either LR (Logistic Regression)
+        or RF (Random Forest)
     """
 
     try:
@@ -44,7 +44,8 @@ def train_model(classifier: str) -> None:
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
-        description='Train model, either with Logistic Regression or Random Forest!')
+        description='Train model, either with Logistic Regression or \
+            Random Forest!')
 
     parser.add_argument('-c', '--classifier', type=str,
                         default='LR', help='Classifier name, either LR or RF')

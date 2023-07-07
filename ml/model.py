@@ -1,5 +1,4 @@
 from sklearn.metrics import fbeta_score, precision_score, recall_score
-from sklearn.metrics import confusion_matrix
 from sklearn.metrics import classification_report
 from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import GridSearchCV
@@ -10,9 +9,6 @@ import json
 import dvc.api
 params = dvc.api.params_show()
 artifacts_path = params['artifacts-path']
-
-
-# Optional: implement hyperparameter tuning.
 
 
 def train_model(X_train, y_train):
@@ -36,7 +32,8 @@ def train_model(X_train, y_train):
 
 def compute_model_metrics(y, preds):
     """
-    Validates the trained machine learning model using precision, recall, and F1.
+    Validates the trained machine learning model using
+    precision, recall, and F1.
 
     Inputs
     ------
@@ -86,11 +83,11 @@ def save_model(model):
     joblib.dump(model, os.path.join(artifacts_path, "model.pkl"))
 
 
-def train_logistic_regression_model(X_train, X_test, y_train, y_test) -> LogisticRegression:
+def train_logistic_regression_model(X_train, X_test, y_train, y_test):
     """ train logistic regression model
 
     Args:
-        X_train (_type_): np.array used for training 
+        X_train (_type_): np.array used for training
         y_train (_type_): np.array labels used for training
         X_test (_type_): np.array used for testing
         y_test (_type_): np.array labels used for testing
@@ -105,11 +102,11 @@ def train_logistic_regression_model(X_train, X_test, y_train, y_test) -> Logisti
     save_model(lrc)
 
 
-def train_random_forest_model(X_train, X_test, y_train, y_test) -> GridSearchCV:
+def train_random_forest_model(X_train, X_test, y_train, y_test):
     """ train random forest classifier model
 
     Args:
-        X_train (_type_): np.array used for training 
+        X_train (_type_): np.array used for training
         y_train (_type_): np.array labels used for training
         X_test (_type_): np.array used for testing
         y_test (_type_): np.array labels used for testing
