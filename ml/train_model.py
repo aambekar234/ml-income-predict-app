@@ -5,7 +5,7 @@ import argparse
 from model import train_random_forest_model
 from model import train_logistic_regression_model
 from sklearn.model_selection import train_test_split
-
+import time
 import logging.config
 logging.config.fileConfig("log_config.ini")
 logger = logging.getLogger()
@@ -53,4 +53,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
     classifier = args.classifier
     logger.info(f"Training a model with {classifier} classifier option.")
+    started = int(time.time() * 1000)
     train_model(classifier)
+    time_took = int(time.time() * 1000) - started
+    logger.info(f"It took {time_took} ms to train the classifer {classifier}")
