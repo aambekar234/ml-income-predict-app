@@ -15,3 +15,5 @@ dependencies:
   - ydata-profiling
   - dvc=3.4.0
   - dvc-gs
+  - pylint
+  - autopep8

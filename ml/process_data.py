@@ -1,12 +1,17 @@
-import logging.config
-import numpy as np
-from sklearn.preprocessing import LabelBinarizer, OneHotEncoder
-import pandas as pd
-import joblib
+'''
+Author: Abhijeet Ambekar
+Date: 06/26/2023
+'''
 import os
+import logging.config
 import argparse
-from sklearn.model_selection import train_test_split
+import joblib
 import dvc.api
+import numpy as np
+import pandas as pd
+from sklearn.preprocessing import LabelBinarizer, OneHotEncoder
+from sklearn.model_selection import train_test_split
+
 params = dvc.api.params_show()
 artifacts_path = params['artifacts-path']
 
@@ -83,14 +88,7 @@ def process_data(df, label=None, inference=False):
         y = lb.fit_transform(y.values).ravel()
 
     X_categorical = encoder.transform(X_categorical)
-    logger.info(
-        f"Categorical features shape - {X_categorical.shape},\
-            Numerical features shape - {X_numerical.shape}")
     X = np.concatenate((X_categorical, X_numerical), axis=1)
-    logger.info(
-        f"Shape of training data after stitching categorical \
-            and numerical features - {X.shape}")
-
     return X, y
 
 
@@ -128,6 +126,38 @@ def combine_columns_for_stratify(df, columns: []):
             stratify by the label now.")
     return df
 
+def main(file_path: str, stratify_columns: [str]):
+    """This is a main function of process data script. 
+
+    Args:
+        file_path (str): _description_
+        stratify_columns (str]): _description_
+    """
+    try:
+        data = pd.read_csv(file_path)
+        data.columns = data.columns.str.lower().str.replace(' ', '')
+        data = data.drop_duplicates()
+        save_category_encoder(data)
+        data = combine_columns_for_stratify(data, stratify_columns)
+        train, test = train_test_split(
+            data,
+            test_size=0.20,
+            stratify=data['combined_column'],
+            random_state=100)
+        train = train.drop('combined_column', axis=1)
+        test = test.drop('combined_column', axis=1)
+        X_train, y_train = process_data(train, label='salary')
+        X_test, y_test = process_data(test, label='salary')
+        # save the test, train artifacts
+        joblib.dump(X_train, os.path.join(artifacts_path, 'data_train.joblib'))
+        joblib.dump(X_test, os.path.join(artifacts_path, 'data_test.joblib'))
+        joblib.dump(y_train, os.path.join(artifacts_path, 
+        'labels_train.joblib'))
+        joblib.dump(y_test, os.path.join(artifacts_path, 'labels_test.joblib'))
+
+    except FileNotFoundError:
+        logger.error("Provided file path is not valid or file does not exist!")
+
 
 if __name__ == "__main__":
 
@@ -143,32 +173,5 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
     file_path = args.file
-    columns = args.stratify
-    print(columns)
-    try:
-        data = pd.read_csv(file_path)
-        data.columns = data.columns.str.lower().str.replace(' ', '')
-        data = data.drop_duplicates()
-        save_category_encoder(data)
-
-        data = combine_columns_for_stratify(data, columns)
-        train, test = train_test_split(
-            data,
-            test_size=0.20,
-            stratify=data['combined_column'],
-            random_state=100)
-
-        train = train.drop('combined_column', axis=1)
-        test = test.drop('combined_column', axis=1)
-        X_train, y_train = process_data(train, label='salary')
-        X_test, y_test = process_data(test, label='salary')
-
-        # save the test, train artifacts
-        joblib.dump(X_train, os.path.join(artifacts_path, 'data_train.joblib'))
-        joblib.dump(X_test, os.path.join(artifacts_path, 'data_test.joblib'))
-        joblib.dump(y_train, os.path.join(
-            artifacts_path, 'labels_train.joblib'))
-        joblib.dump(y_test, os.path.join(artifacts_path, 'labels_test.joblib'))
-
-    except FileNotFoundError:
-        logger.error("Provided file path is not valid or file does not exist!")
+    columns = args.stratify_columns
+    main(file_path, columns)

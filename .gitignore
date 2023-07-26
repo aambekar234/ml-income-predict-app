@@ -3,3 +3,6 @@ todo.txt
 ml/__pycache__/
 keys/*
 logs/*
+.vscod*
+.vscode/*
+__pycache_*

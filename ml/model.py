@@ -1,34 +1,20 @@
+'''
+Author: Abhijeet Ambekar
+Date: 06/26/2023
+'''
+
+import os
+import json
+import joblib
+import dvc.api
 from sklearn.metrics import fbeta_score, precision_score, recall_score
 from sklearn.metrics import classification_report
 from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import GridSearchCV
 from sklearn.ensemble import RandomForestClassifier
-import joblib
-import os
-import json
-import dvc.api
+
 params = dvc.api.params_show()
 artifacts_path = params['artifacts-path']
-
-
-def train_model(X_train, y_train):
-    """
-    Trains a machine learning model and returns it.
-
-    Inputs
-    ------
-    X_train : np.array
-        Training data.
-    y_train : np.array
-        Labels.
-    Returns
-    -------
-    model
-        Trained machine learning model.
-    """
-
-    pass
-
 
 def compute_model_metrics(y, preds):
     """
@@ -51,24 +37,6 @@ def compute_model_metrics(y, preds):
     precision = precision_score(y, preds, zero_division=1)
     recall = recall_score(y, preds, zero_division=1)
     return precision, recall, fbeta
-
-
-def inference(model, X):
-    """ Run model inferences and return the predictions.
-
-    Inputs
-    ------
-    model : ???
-        Trained machine learning model.
-    X : np.array
-        Data used for prediction.
-    Returns
-    -------
-    preds : np.array
-        Predictions from the model.
-    """
-    pass
-
 
 def save_model(model):
     """ Save the model object with model_name at the provided path
