@@ -62,7 +62,7 @@ def predict(request: PredictionRequest):
              'hours-per-week': [request.hours_per_week],
              'native-country': [request.native_country]})
 
-        X, y = process_data(df, label=None, training=False)
+        X, y = process_data(df, label=None, inference=True)
 
         # Perform the model inference
         prediction = model.predict(X)
@@ -71,7 +71,6 @@ def predict(request: PredictionRequest):
         return {f"prediction is {prediction[0]}"}
 
     except Exception as e:
-        logger.info("Some exception happened!!!!")
         logger.error(str(e))
 
 
