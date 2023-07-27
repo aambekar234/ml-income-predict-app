@@ -173,5 +173,5 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
     file_path = args.file
-    columns = args.stratify_columns
+    columns = args.stratify
     main(file_path, columns)
