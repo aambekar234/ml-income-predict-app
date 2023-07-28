@@ -2,3 +2,4 @@
     remote = gcp_remote
 ['remote "gcp_remote"']
     url = gs://chapter3-models
+    credentialpath = ../keys/sa-key.json
