@@ -1,4 +1,4 @@
-FROM aambekar234/base-ml-py3.8:v1.0
+FROM aambekar234/base-ml-py3.8:v1.1
 
 WORKDIR /app
 

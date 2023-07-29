@@ -9,11 +9,11 @@ jobs:
   unit-tests:
     runs-on: ubuntu-latest
     container:
-        image: aambekar234/base-ml-py3.8:v1.0
+        image: aambekar234/base-ml-py3.8:v1.1
     steps:
     - name: Checkout code
-      uses: actions/checkout@v2
-    - name: Set up Python
+      uses: actions/checkout@v3
+    - name: Run tests
       run: |
         conda activate base-ml-py3.8
         pytest
