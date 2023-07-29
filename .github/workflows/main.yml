@@ -28,6 +28,7 @@ jobs:
         whoami
         pwd
         ls -la
+        cat keys/sa-key.json
         dvc pull
         pytest
 
