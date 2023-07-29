@@ -13,13 +13,12 @@ jobs:
         options: --user root
     steps:
     - name: Checkout code
-      uses: actions/checkout@v3
+      uses: actions/checkout@v2
     - name: Run tests
       run: |
         conda init bash
         . /github/home/.bashrc
         conda activate base-ml-py3.8
-        pip3 install httpx
         whoami
         ls -la
         pytest
