@@ -21,7 +21,7 @@ jobs:
         MY_SECRET: ${{secrets.SAKEY}}
       run: |
         mkdir keys
-        echo "$MY_SECRET" > keys/sa-key.json
+        echo '$MY_SECRET' > keys/sa-key.json
         cat keys/sa-key.json
 
     - name: Upload artifact
