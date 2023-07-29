@@ -23,5 +23,5 @@ jobs:
         conda activate base-ml-py3.8
         whoami
         ls -la
-        pytest test_main.py
+        pytest --verbose
 
