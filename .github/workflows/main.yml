@@ -18,5 +18,6 @@ jobs:
         conda init bash
         . /github/home/.bashrc
         conda activate base-ml-py3.8
+        pip3 install httpx
         pytest
 
