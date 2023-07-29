@@ -27,7 +27,7 @@ jobs:
         conda activate base-ml-py3.8
         whoami
         pwd
-        dvc pull
         ls -la
+        dvc pull
         pytest
 
