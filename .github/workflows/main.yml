@@ -23,6 +23,12 @@ jobs:
         mkdir keys
         echo "$MY_SECRET" > keys/sa-key.json
         cat keys/sa-key.json
+
+    - name: Upload artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: keyfile
+        path: ./keys/sa-key.json
     - name: Run tests
       run: |
         conda init bash
