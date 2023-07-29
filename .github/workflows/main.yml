@@ -10,6 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     container:
         image: aambekar234/base-ml-py3.8:v1.1
+        options: --user root
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
