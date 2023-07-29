@@ -16,7 +16,7 @@ jobs:
     - name: Run tests
       run: |
         conda init bash
-        source ~/.bashrc
+        . /github/home/.bashrc
         conda activate base-ml-py3.8
         pytest
 
