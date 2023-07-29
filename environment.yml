@@ -1,4 +1,4 @@
-name: ml-income-predict-app
+name: base-ml-py3.8
 channels:
   - defaults
   - conda-forge

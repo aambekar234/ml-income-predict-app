@@ -1,0 +1,20 @@
+name: Python CI/CD
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  unit-tests:
+    runs-on: ubuntu-latest
+    container:
+        image: aambekar234/base-ml-py3.8:v1.0
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+    - name: Set up Python
+      run: |
+        conda activate base-ml-py3.8
+        pytest
+
