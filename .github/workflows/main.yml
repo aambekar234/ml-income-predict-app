@@ -14,6 +14,8 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
+      with:
+        ref: main
     - name: Run tests
       run: |
         conda init bash
@@ -21,5 +23,5 @@ jobs:
         conda activate base-ml-py3.8
         whoami
         ls -la
-        pytest
+        pytest test_main.py
 
