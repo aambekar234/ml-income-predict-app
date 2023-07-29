@@ -17,9 +17,12 @@ jobs:
       with:
         ref: main
     - name: store key file
+      env:
+        MY_SECRET: ${{secrets.SAKEY}}
       run: |
         mkdir keys
-        echo '${{ secrets.SAKEY }}' > keys/sa-key.json
+        echo "$MY_SECRET" > keys/sa-key.json
+        cat keys/sa-key.json
     - name: Run tests
       run: |
         conda init bash
