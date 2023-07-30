@@ -32,6 +32,7 @@ jobs:
         . /github/home/.bashrc
         conda activate base-ml-py3.8
         whoami
+        chown root /__w/ml-income-predict-app/ml-income-predict-app/
         pwd
         ls -la
         ls -al keys 
