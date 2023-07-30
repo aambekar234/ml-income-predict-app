@@ -79,7 +79,7 @@ jobs:
     - name: Build and push
       uses: docker/build-push-action@v4
       with:
-        context: /app
+        context: ./app
         file: ./Dockerfile
         push: true
         tags: ${{ secrets.DOCKERHUB_USERNAME }}/apps:ml-income-predict-app
