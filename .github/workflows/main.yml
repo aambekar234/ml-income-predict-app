@@ -15,7 +15,8 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
       with:
-        ref: main
+        ref: ${{ github.ref }}
+        token: ${{ secrets.PAT }}
     - name: store key file
       env:
         MY_SECRET: ${{vars.KEY}}
@@ -25,11 +26,6 @@ jobs:
         echo -n "$MY_SECRET" > keys/sa-key.json
         cat keys/sa-key.json
 
-    - name: Upload artifact
-      uses: actions/upload-artifact@v2
-      with:
-        name: keyfile
-        path: ./keys/sa-key.json
     - name: Run tests
       run: |
         conda init bash
@@ -39,7 +35,6 @@ jobs:
         pwd
         ls -la
         ls -al keys 
-        cat ./keys/sa-key.json
         dvc pull
         pytest
 
