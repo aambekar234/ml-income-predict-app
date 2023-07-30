@@ -18,10 +18,10 @@ jobs:
         ref: main
     - name: store key file
       env:
-        MY_SECRET: ${{secrets.SAKEY}}
+        MY_SECRET: ${{vars.KEY}}
       run: |
         mkdir keys
-        echo '$MY_SECRET' > keys/sa-key.json
+        echo "$MY_SECRET" > keys/sa-key.json
         cat keys/sa-key.json
 
     - name: Upload artifact
