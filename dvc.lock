@@ -1,7 +1,7 @@
 schema: '2.0'
 stages:
   train:
-    cmd: python ml/train_model.py
+    cmd: python ml/train_model.py -c LR
     deps:
     - path: ./artifacts/data_train.joblib
       hash: md5
@@ -13,12 +13,12 @@ stages:
       size: 208457
     - path: ./ml/model.py
       hash: md5
-      md5: ab659815fe58d1808d5ae364d56aaa1d
-      size: 4123
+      md5: 9a3064d2f79235d287470f034828fbd2
+      size: 3564
     - path: ./ml/train_model.py
       hash: md5
-      md5: d60b48242ee46cbce742e3239bd850bb
-      size: 1830
+      md5: cae6dbccc0d91fd356db91c875cb42fc
+      size: 2255
     outs:
     - path: ./artifacts/metrics_train.json
       hash: md5
@@ -73,8 +73,8 @@ stages:
       size: 3974474
     - path: ./ml/process_data.py
       hash: md5
-      md5: e5500d00b48305c5016bed7e2acb2c62
-      size: 5298
+      md5: 05e8e5e9feed8023b8a2965811a06008
+      size: 5317
     outs:
     - path: ./artifacts/category_encoder.joblib
       hash: md5
@@ -109,12 +109,12 @@ stages:
       size: 52289
     - path: ./ml/evaluate.py
       hash: md5
-      md5: 5cccfaf1c5f48ce75620d22aefa1b2f2
-      size: 922
+      md5: 35314ce3f8c6183f24a11999ab19d413
+      size: 1082
     - path: ./ml/model.py
       hash: md5
-      md5: ab659815fe58d1808d5ae364d56aaa1d
-      size: 4123
+      md5: 9a3064d2f79235d287470f034828fbd2
+      size: 3564
     outs:
     - path: ./artifacts/metrics_evaluate.json
       hash: md5

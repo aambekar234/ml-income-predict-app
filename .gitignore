@@ -8,3 +8,5 @@ logs/*
 __pycache_*
 artifacts/*.joblib
 artifacts/*.json
+.pytest_cache/*
+./artifacts/model.pkl

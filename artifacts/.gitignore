@@ -4,7 +4,7 @@
 /labels_test.joblib
 /category_encoder.joblib
 /binary_encoder.joblib
-/model.pkl
 /metrics.json
 /metrics_train.json
 /metrics_evaluate.json
+/model.pkl
