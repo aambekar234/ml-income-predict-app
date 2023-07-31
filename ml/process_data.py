@@ -92,7 +92,7 @@ def process_data(df, label=None, inference=False):
     return X, y
 
 
-def combine_columns_for_stratify(df, columns: []):
+def combine_columns_for_stratify(df, columns):
     """ This function combine the data frame columns which need to stratify
     into same single column. It return the dataframe with the combined column
 
@@ -126,12 +126,13 @@ def combine_columns_for_stratify(df, columns: []):
             stratify by the label now.")
     return df
 
-def main(file_path: str, stratify_columns: [str]):
-    """This is a main function of process data script. 
+
+def main(file_path: str, stratify_columns):
+    """This is a main function of process data script.
 
     Args:
-        file_path (str): _description_
-        stratify_columns (str]): _description_
+        file_path (str): path to data file
+        stratify_columns ([str]): space seprate columns names to stratify data
     """
     try:
         data = pd.read_csv(file_path)
@@ -151,8 +152,8 @@ def main(file_path: str, stratify_columns: [str]):
         # save the test, train artifacts
         joblib.dump(X_train, os.path.join(artifacts_path, 'data_train.joblib'))
         joblib.dump(X_test, os.path.join(artifacts_path, 'data_test.joblib'))
-        joblib.dump(y_train, os.path.join(artifacts_path, 
-        'labels_train.joblib'))
+        joblib.dump(y_train, os.path.join(artifacts_path,
+                                          'labels_train.joblib'))
         joblib.dump(y_test, os.path.join(artifacts_path, 'labels_test.joblib'))
 
     except FileNotFoundError:

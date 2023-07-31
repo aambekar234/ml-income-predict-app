@@ -45,8 +45,9 @@ def train_model(classifier: str) -> None:
     else:
         train_logistic_regression_model(X_train, X_test, y_train, y_test)
 
+
 def main(classifier: str):
-    """This is a main function of train model script. 
+    """This is a main function of train model script.
     Args:
         classifier (str): classifier to train the model (either LR/RF)
     """
@@ -54,7 +55,10 @@ def main(classifier: str):
     started = int(time.time() * 1000)
     train_model(classifier)
     time_took = int(time.time() * 1000) - started
-    logger.info("It took %s ms to train the classifer %s", time_took, classifier)
+    logger.info(
+        "It took %s ms to train the classifer %s",
+        time_took,
+        classifier)
 
 
 if __name__ == "__main__":

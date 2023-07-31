@@ -17,7 +17,7 @@ logger = logging.getLogger()
 
 def evaluate():
     """
-    This function evaluates stored model with test data saved 
+    This function evaluates stored model with test data saved
     during process_data step
     """
     try:

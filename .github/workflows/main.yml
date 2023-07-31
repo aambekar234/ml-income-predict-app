@@ -33,7 +33,10 @@ jobs:
         chown root /__w/ml-income-predict-app/ml-income-predict-app/
         pwd
         dvc pull
+        pip install flake8
+        flake8
         pytest
+        flake8 --exclude=./sanitycheck.py
 
     - name: Package the app in tar file
       run: tar -cvf app.tar ./

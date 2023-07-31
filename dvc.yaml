@@ -18,6 +18,7 @@ stages:
       - ./ml/model.py
       - ./artifacts/data_train.joblib
       - ./artifacts/labels_train.joblib
+      - ./artifacts/category_encoder.joblib
     outs:
       - ./artifacts/model.pkl
     metrics:

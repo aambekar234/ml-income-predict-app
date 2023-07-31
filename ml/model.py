@@ -16,6 +16,7 @@ from sklearn.ensemble import RandomForestClassifier
 params = dvc.api.params_show()
 artifacts_path = params['artifacts-path']
 
+
 def compute_model_metrics(y, preds):
     """
     Validates the trained machine learning model using
@@ -37,6 +38,7 @@ def compute_model_metrics(y, preds):
     precision = precision_score(y, preds, zero_division=1)
     recall = recall_score(y, preds, zero_division=1)
     return precision, recall, fbeta
+
 
 def save_model(model):
     """ Save the model object with model_name at the provided path
