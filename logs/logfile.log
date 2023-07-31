@@ -131,3 +131,5 @@
 2023-07-30 20:06:33 - INFO train_model.py - It took 246 ms to train the classifer LR
 2023-07-30 20:06:33 - INFO train_model.py - Training a model with LR classifier option.
 2023-07-30 20:06:33 - INFO train_model.py - It took 260 ms to train the classifer LR
+2023-07-30 21:52:26 - INFO train_model.py - Training a model with RF classifier option.
+2023-07-30 21:57:20 - INFO train_model.py - It took 293907 ms to train the classifer RF
