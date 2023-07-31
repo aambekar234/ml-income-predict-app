@@ -1,4 +1,4 @@
-name: Python CI/CD
+name: CICD
 
 on:
   push:
@@ -6,6 +6,8 @@ on:
       - main
 env:
   MY_SECRET: ${{secrets.SA_KEY}}
+  APP_DOCKER_IMAGE: aambekar234/apps:ml-income-predict-app
+  RENDER_HOOK: ${{secrets.RENDER_HOOK}}
 
 jobs:
   unit-tests:
@@ -72,11 +74,23 @@ jobs:
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v2
     
-    - name: check env
+    - name: Build App image and push
       run: |
         cd app
-        docker build -t aambekar234/apps:ml-income-predict-app .
-        docker push aambekar234/apps:ml-income-predict-app
+        docker build -t "$APP_DOCKER_IMAGE" .
+        docker push "$APP_DOCKER_IMAGE"
+
+
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy with render hook url 
+        shell: bash
+        run: |
+          curl -s -X GET "$RENDER_HOOK" 
+       
+
+
 
 
 
