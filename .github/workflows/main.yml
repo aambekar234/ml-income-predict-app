@@ -43,7 +43,7 @@ jobs:
       with:
         name: app.tar
         path: ./app.tar
-        retention-days: 1
+        retention-days: 0
 
   dockerize-app:
     needs: [unit-tests]
@@ -82,6 +82,7 @@ jobs:
 
 
   deploy:
+    needs: [dockerize-app]
     runs-on: ubuntu-latest
     steps:
       - name: Deploy with render hook url 
