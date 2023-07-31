@@ -3,5 +3,5 @@ artifacts-path: ./artifacts/
 logfile-path: ./logs/application.logs
 
 # below parameters can be used to run different experiments 
-model: LR
-stratify: salary race
+model: RF
+stratify: salary relationship
