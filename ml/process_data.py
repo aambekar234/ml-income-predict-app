@@ -133,6 +133,8 @@ def main(file_path: str, stratify_columns):
     Args:
         file_path (str): path to data file
         stratify_columns ([str]): space seprate columns names to stratify data
+    Return:
+        None
     """
     try:
         data = pd.read_csv(file_path)
@@ -161,6 +163,8 @@ def main(file_path: str, stratify_columns):
 
 
 if __name__ == "__main__":
+    """script entry point
+    """
 
     parser = argparse.ArgumentParser(
         description='Process the data. Get data and labels \

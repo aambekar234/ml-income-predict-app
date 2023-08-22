@@ -1,6 +1,12 @@
 # Project
 
-Train model to predict whether income exceeds 50k based on census data. Serve the model with Fast API. 
+This project covers below concepts.
+
+    1. Train model to predict whether income exceeds 50k based on census data.
+    2. Evaluate the model on different data slices to minimize the bias towards certain datapoints. 
+    3. Run unit test cases for Machine learning operations. 
+    4. Use github actions for CI/CD and deploy app on render cloud. 
+    5. Use FastAPI to serve model online for inference
 
 ## Project Description
 
@@ -15,7 +21,7 @@ In this project, you will find implementation of classification model on publicl
     conda activate ml-income-predict-app
     ```
 ## Run experiments with DVC
-Change the parameters in params.yaml file and run dvc experiments by below commands. 
+Change the parameters in params.yaml file according to your needs and run dvc experiments by below commands. 
 ```
 dvc exp run
 ```

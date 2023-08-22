@@ -11,7 +11,7 @@ import evaluate as evl
 
 @pytest.fixture
 def load_data():
-    """This is a ficture function to load the data used by unit test cases
+    """This is a fixture function to load the data used by unit test cases
     """
     file_path = './data/census.csv'
     columns = ['salary']

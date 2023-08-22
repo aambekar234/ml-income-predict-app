@@ -100,7 +100,7 @@ def train_random_forest_model(X_train, X_test, y_train, y_test):
 
 
 def generate_report(y_test, y_test_preds, filename: str) -> None:
-    """_summary_
+    """generates model evaluation report
 
     Args:
         y_test: y test numpy array
