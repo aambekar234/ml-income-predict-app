@@ -63,7 +63,7 @@ def get_payload_invalid():
 
 
 def test_greeting():
-    """Unit test for get call 
+    """Unit test for get call
     """
     response = client.get("/")
     assert response.status_code == 200
