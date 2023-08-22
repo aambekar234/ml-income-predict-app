@@ -46,6 +46,14 @@ def welcome():
 
 @app.post("/predict")
 def predict(request: PredictionRequest):
+    """ Uses request object to perfrom model inference
+
+    Args:
+        request (PredictionRequest): Pydantic model for request object
+
+    Returns:
+        return list of inference results
+    """
 
     logger.info(f"Received post request {request}")
     # construct dataframe from request
