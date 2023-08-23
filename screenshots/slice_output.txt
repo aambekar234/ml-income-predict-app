@@ -1,0 +1,38 @@
+File format
+[accuracy
+model (either RF (Random forest) or LR (Logistic regression))
+column names on which slice is performed on
+]
+
+
+0.79701905
+RF
+salary race
+
+0.79701905
+LR
+salary race
+
+0.79701905
+LR
+salary education
+
+0.79701905
+LR
+salary native-country
+
+0.79701905
+RF
+salary education
+
+0.79701905
+RF
+salary
+
+0.79640443
+RF
+salary native-country
+
+0.79640443
+LR
+salary
