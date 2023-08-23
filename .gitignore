@@ -10,3 +10,4 @@ artifacts/*.joblib
 artifacts/*.json
 .pytest_cache/*
 ./artifacts/model.pkl
+.DS_Store

@@ -31,19 +31,19 @@ def train_model(classifier: str) -> None:
             artifacts_path, "data_train.joblib"))
         y_train = joblib.load(os.path.join(
             artifacts_path, "labels_train.joblib"))
+    
+        if classifier == "RF":
+            # Split the data into training and testing sets
+            X_train, X_test, y_train, y_test = train_test_split(
+            X_train, y_train, test_size=0.2, random_state=42)
+            train_random_forest_model(X_train, X_test, y_train, y_test)
+        else:
+            train_logistic_regression_model(X_train, y_train)
+
     except FileNotFoundError:
         logger.error(
             "Artifatcs not found. Please run the process data module first!!")
         return
-
-    # Split the data into training and testing sets
-    X_train, X_test, y_train, y_test = train_test_split(
-        X_train, y_train, test_size=0.2, random_state=42)
-
-    if classifier == "RF":
-        train_random_forest_model(X_train, X_test, y_train, y_test)
-    else:
-        train_logistic_regression_model(X_train, X_test, y_train, y_test)
 
 
 def main(classifier: str):
@@ -67,7 +67,7 @@ if __name__ == "__main__":
             Random Forest!')
 
     parser.add_argument('-c', '--classifier', type=str,
-                        default='RF', help='Classifier name, either LR or RF')
+                        default='LR', help='Classifier name, either LR or RF')
 
     args = parser.parse_args()
     classifier = args.classifier

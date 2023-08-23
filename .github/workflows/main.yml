@@ -25,17 +25,19 @@ jobs:
         mkdir keys
         echo -n "$MY_SECRET" > keys/sa-key.json
 
-    - name: Run tests
+    - name: Run flake8 test
       run: |
         conda init bash
         . /github/home/.bashrc
         conda activate base-ml-py3.8
         chown root /__w/ml-income-predict-app/ml-income-predict-app/
-        pwd
         dvc pull
         pip install flake8
-        pytest
         flake8 --exclude=./sanitycheck.py
+
+    - name: Run pytest
+      run: |
+        pytest
 
     - name: Package the app in tar file
       run: tar -cvf app.tar ./

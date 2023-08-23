@@ -1,6 +1,8 @@
 stages:
   process_data:
-    cmd: python ml/process_data.py -s ${stratify}
+    matrix:
+      strat: [salary, education]
+    cmd: python ml/process_data.py -s ${item.start}
     deps:
       - ./ml/process_data.py
       - ./data/census.csv
@@ -12,7 +14,7 @@ stages:
       - ./artifacts/category_encoder.joblib
 
   train:
-    cmd: python ml/train_model.py -c ${model}
+    cmd: python ml/train_model.py -c ${item.clss}
     deps:
       - ./ml/train_model.py
       - ./ml/model.py
@@ -20,9 +22,9 @@ stages:
       - ./artifacts/labels_train.joblib
       - ./artifacts/category_encoder.joblib
     outs:
-      - ./artifacts/model.pkl
+      - ./artifacts/model-${item.clss}.pkl
     metrics:
-      - ./artifacts/metrics_train.json
+      - ./artifacts/metrics_train-${item.clss}.json
 
   evaluate:
     cmd: python ml/evaluate.py

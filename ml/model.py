@@ -4,6 +4,7 @@ Date: 06/26/2023
 '''
 
 import os
+import logging.config
 import json
 import joblib
 import dvc.api
@@ -12,9 +13,14 @@ from sklearn.metrics import classification_report
 from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import GridSearchCV
 from sklearn.ensemble import RandomForestClassifier
+from sklearn.model_selection import KFold
+from sklearn.model_selection import cross_val_score
 
 params = dvc.api.params_show()
 artifacts_path = params['artifacts-path']
+
+logging.config.fileConfig("log_config.ini")
+logger = logging.getLogger()
 
 
 def compute_model_metrics(y, preds):
@@ -53,26 +59,20 @@ def save_model(model):
     joblib.dump(model, os.path.join(artifacts_path, "model.pkl"))
 
 
-def train_logistic_regression_model(X_train, X_test, y_train, y_test):
-    """ train logistic regression model
+def train_logistic_regression_model(X, y):
+    """ train logistic regression model with k-fold cross validation
 
     Args:
-        X_train (_type_): np.array used for training
-        y_train (_type_): np.array labels used for training
-        X_test (_type_): np.array used for testing
-        y_test (_type_): np.array labels used for testing
+        X (_type_): np.array used for training
+        y (_type_): np.array labels used for training
 
     Returns:
         LogisticRegression: sklearn logistic regression model
     """
-    lrc = LogisticRegression(solver='lbfgs', max_iter=3000)
-    lrc.fit(X_train, y_train)
-    y_test_preds = lrc.predict(X_test)
-    generate_report(y_test, y_test_preds, "metrics_train.json")
-    save_model(lrc)
+    model = LogisticRegression(solver='lbfgs', max_iter=3000)
+    kfoldTraining(X, y, model, 10)
 
-
-def train_random_forest_model(X_train, X_test, y_train, y_test):
+def train_random_forest_model(X_train, X_test, y_train, y_test, folds=5):
     """ train random forest classifier model
 
     Args:
@@ -92,11 +92,43 @@ def train_random_forest_model(X_train, X_test, y_train, y_test):
         'max_depth': [4, 5, 100],
         'criterion': ['gini', 'entropy']
     }
-    cv_rfc = GridSearchCV(estimator=rfc, param_grid=param_grid, cv=5)
+    cv_rfc = GridSearchCV(estimator=rfc, param_grid=param_grid, cv=folds)
     cv_rfc.fit(X_train, y_train)
     y_test_preds = cv_rfc.best_estimator_.predict(X_test)
     generate_report(y_test, y_test_preds, "metrics_train.json")
     save_model(cv_rfc.best_estimator_)
+
+def kfoldTraining(X, y, model, folds=5):
+    """Trains the model with k-fold cross validation strategy
+
+    Args:
+        X (np.array): np.array used for training
+        y (np.array): np.array labels used for training
+        model: sklearn model classifier
+        folds: No. of folds to perform in cross-validation 
+    """
+
+    # Create a KFold instance
+    kfold = KFold(n_splits=folds, shuffle=True, random_state=42)
+
+    # Initialize lists to store true labels and predicted labels
+    true_labels = []
+    predicted_labels = []
+
+    # Perform cross-validation and collect true and predicted labels
+    for train_index, test_index in kfold.split(X):
+        X_train, X_test = X[train_index], X[test_index]
+        y_train, y_test = y[train_index], y[test_index]
+        
+        model.fit(X_train, y_train)
+        y_pred = model.predict(X_test)
+        
+        true_labels.extend(y_test)
+        predicted_labels.extend(y_pred)
+
+    # Calculate the classification report
+    generate_report(true_labels, predicted_labels, "metrics_train.json")
+    save_model(model)
 
 
 def generate_report(y_test, y_test_preds, filename: str) -> None:

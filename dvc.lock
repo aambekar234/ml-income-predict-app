@@ -1,7 +1,7 @@
 schema: '2.0'
 stages:
   train:
-    cmd: python ml/train_model.py -c LR
+    cmd: python ml/train_model.py -c RF
     deps:
     - path: ./artifacts/category_encoder.joblib
       hash: md5
@@ -17,12 +17,12 @@ stages:
       size: 208457
     - path: ./ml/model.py
       hash: md5
-      md5: 9a3064d2f79235d287470f034828fbd2
-      size: 3564
+      md5: f644c4381c708d1a528721c13a89004f
+      size: 3590
     - path: ./ml/train_model.py
       hash: md5
-      md5: cae6dbccc0d91fd356db91c875cb42fc
-      size: 2255
+      md5: ad7f123a724bc53d3cd82efa6c9a8ac3
+      size: 2280
     outs:
     - path: ./artifacts/metrics_train.json
       hash: md5
@@ -69,7 +69,7 @@ stages:
       md5: f351d751767114422443d5c6581af59e
       size: 208457
   process_data:
-    cmd: python ml/process_data.py -s salary race
+    cmd: python ml/process_data.py -s salary relationship
     deps:
     - path: ./data/census.csv
       hash: md5
@@ -77,8 +77,8 @@ stages:
       size: 3974474
     - path: ./ml/process_data.py
       hash: md5
-      md5: af5ef9194c5f15494a87a226f0d94374
-      size: 5342
+      md5: 21cf6afbc0ba9f8c85f53c54edbd4a54
+      size: 5434
     outs:
     - path: ./artifacts/category_encoder.joblib
       hash: md5
@@ -113,12 +113,12 @@ stages:
       size: 52289
     - path: ./ml/evaluate.py
       hash: md5
-      md5: 35314ce3f8c6183f24a11999ab19d413
-      size: 1082
+      md5: af22ad50569e67071dd4168a8ce4b605
+      size: 1081
     - path: ./ml/model.py
       hash: md5
-      md5: 9a3064d2f79235d287470f034828fbd2
-      size: 3564
+      md5: f644c4381c708d1a528721c13a89004f
+      size: 3590
     outs:
     - path: ./artifacts/metrics_evaluate.json
       hash: md5

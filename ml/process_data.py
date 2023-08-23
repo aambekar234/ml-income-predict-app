@@ -56,15 +56,13 @@ def save_category_encoder(df):
             'category_encoder.joblib'))
 
 
-def process_data(df, label=None, inference=False):
-    """ This functions encodes the category columns into one hot encoding and
-        creates new dataframe with numerical only data for purpose of training
-        later in the train piepline.
+def process_data(df, label=None):
+    """ This function encodes the category columns into one hot encoding and
+        creates new dataframe with numerical only data for purpose of training.
 
     Args:
         df (pd.dataframe): dataframe
-        categorical_features ([]): pytho list of categorical columns
-        label (_type_): label column as string in dataframe df
+        label (String): label column as string in dataframe df
 
     Returns:
         X (numpy.ndarray): numpy array of data
@@ -84,7 +82,7 @@ def process_data(df, label=None, inference=False):
     encoder = joblib.load(os.path.join(
         artifacts_path, 'category_encoder.joblib'))
 
-    if not inference:
+    if label is not None:
         y = lb.fit_transform(y.values).ravel()
 
     X_categorical = encoder.transform(X_categorical)
@@ -93,7 +91,7 @@ def process_data(df, label=None, inference=False):
 
 
 def combine_columns_for_stratify(df, columns):
-    """ This function combine the data frame columns which need to stratify
+    """ This function combines the data frame columns which need to stratify
     into same single column. It return the dataframe with the combined column
 
     Args:
@@ -127,7 +125,7 @@ def combine_columns_for_stratify(df, columns):
     return df
 
 
-def main(file_path: str, stratify_columns):
+def main(file_path: str, stratify_columns, slice_column=None):
     """This is a main function of process data script.
 
     Args:
@@ -176,7 +174,12 @@ if __name__ == "__main__":
                         default=['salary'],
                         help='List of columns as string to stratify the data.')
 
+    parser.add_argument('-sl', '--slice', type=str,
+                        default=None,
+                        help='Column to perform data slice on')
+
     args = parser.parse_args()
     file_path = args.file
     columns = args.stratify
-    main(file_path, columns)
+    slice_column = args.slice
+    main(file_path, columns, slice_column)
