@@ -4,4 +4,4 @@ logfile-path: ./logs/application.logs
 
 # below parameters can be used to run different experiments 
 model: RF
-stratify: salary relationship
+stratify: salary native-country
