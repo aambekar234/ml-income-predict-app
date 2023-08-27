@@ -9,6 +9,8 @@ import process_data as prd
 import train_model as trm
 import evaluate as evl
 import pandas as pd
+import joblib
+from sklearn.utils.validation import check_is_fitted
 from process_data import process_data
 
 categorical_features = [
@@ -94,7 +96,7 @@ def train_model(load_data):
         load_data : fixture function to load the data
     """
     trm.main("LR")
-
+    return joblib.load("./artifacts/model.pkl")
 
 def test_process_data(load_data):
     """Unit test case for process data script
@@ -144,3 +146,17 @@ def test_encoder(get_dataframe1, get_dataframe2):
     X1, y2 = process_data(get_dataframe1)
     X2, y2 = process_data(get_dataframe2)
     assert not np.array_equal(X1, X2)
+
+def test_is_fitted(train_model):
+    """Unit test to cehk the model is fitted or not
+
+    Args:
+        train_model: ficture function which trains and returns the model
+
+    Raises:
+        AssertionError: Raises error if model is not fitted
+    """
+    try:
+        check_is_fitted(train_model)
+    except:
+        raise AssertionError
