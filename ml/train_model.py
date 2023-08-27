@@ -31,11 +31,11 @@ def train_model(classifier: str) -> None:
             artifacts_path, "data_train.joblib"))
         y_train = joblib.load(os.path.join(
             artifacts_path, "labels_train.joblib"))
-    
+
         if classifier == "RF":
             # Split the data into training and testing sets
             X_train, X_test, y_train, y_test = train_test_split(
-            X_train, y_train, test_size=0.2, random_state=42)
+                X_train, y_train, test_size=0.2, random_state=42)
             train_random_forest_model(X_train, X_test, y_train, y_test)
         else:
             train_logistic_regression_model(X_train, y_train)

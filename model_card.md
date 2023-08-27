@@ -11,7 +11,7 @@ Information for the data used for training this model can be found at [here](htt
 20% of original data is used for Evaluation. One hot encoding is used for encoding categories and binary encoding is used to encode the labels. 
 
 ## Metrics
-
+Accuracy 0.797, Precision 0.706, recall 0.267, fbeta 0.387
 
 ## Ethical Considerations
 The dataset contains personal information such as race, grography, gender and age which may potentially descriminate against certain group of people.

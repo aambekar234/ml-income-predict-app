@@ -1,10 +1,6 @@
-/data_train.joblib
-/labels_train.joblib
-/data_test.joblib
-/labels_test.joblib
-/category_encoder.joblib
 /binary_encoder.joblib
 /metrics.json
 /metrics_train.json
 /metrics_evaluate.json
 /model.pkl
+/test_output.txt

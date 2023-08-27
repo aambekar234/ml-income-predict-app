@@ -13,7 +13,7 @@ dependencies:
   - fastapi
   - uvicorn
   - ydata-profiling
-  - dvc=3.4.0
+  - dvc=3.16.0
   - dvc-gs
   - pylint
   - autopep8

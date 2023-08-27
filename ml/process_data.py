@@ -14,7 +14,6 @@ from sklearn.model_selection import train_test_split
 
 params = dvc.api.params_show()
 artifacts_path = params['artifacts-path']
-
 logging.config.fileConfig("log_config.ini")
 logger = logging.getLogger()
 
@@ -46,9 +45,8 @@ def save_category_encoder(df):
     Return:
         None
     """
-    X_categorical = df[categorical_features].values
     encoder = OneHotEncoder(handle_unknown="ignore", sparse_output=False)
-    encoder.fit(X_categorical)
+    encoder.fit(df[categorical_features])
     joblib.dump(
         encoder,
         os.path.join(
@@ -75,18 +73,16 @@ def process_data(df, label=None):
     if label is not None:
         y = df[label]
 
-    X = df
-    X_categorical = X[categorical_features].values
-    X_numerical = X[numerical_features].values
+    X = None
     lb = LabelBinarizer()
     encoder = joblib.load(os.path.join(
         artifacts_path, 'category_encoder.joblib'))
 
     if label is not None:
         y = lb.fit_transform(y.values).ravel()
-
-    X_categorical = encoder.transform(X_categorical)
-    X = np.concatenate((X_categorical, X_numerical), axis=1)
+    X_numerical = df[numerical_features].to_numpy()
+    X_categorical = encoder.transform(df[categorical_features])
+    X = np.hstack((X_numerical, X_categorical))
     return X, y
 
 
@@ -121,11 +117,11 @@ def combine_columns_for_stratify(df, columns):
         df['combined_column'] = df['salary']
         logger.info(
             "The provided stratify configuration is incorrect, method will \
-            stratify by the label now.")
+                stratify by the label now.")
     return df
 
 
-def main(file_path: str, stratify_columns, slice_column=None):
+def main(file_path: str, stratify_columns):
     """This is a main function of process data script.
 
     Args:
@@ -137,12 +133,14 @@ def main(file_path: str, stratify_columns, slice_column=None):
     try:
         data = pd.read_csv(file_path)
         data.columns = data.columns.str.lower().str.replace(' ', '')
+        # Trim leading and trailing whitespace from all string values
+        data = data.applymap(lambda x: x.strip() if isinstance(x, str) else x)
         data = data.drop_duplicates()
         save_category_encoder(data)
         data = combine_columns_for_stratify(data, stratify_columns)
         train, test = train_test_split(
             data,
-            test_size=0.20,
+            test_size=0.15,
             stratify=data['combined_column'],
             random_state=100)
         train = train.drop('combined_column', axis=1)
@@ -151,10 +149,9 @@ def main(file_path: str, stratify_columns, slice_column=None):
         X_test, y_test = process_data(test, label='salary')
         # save the test, train artifacts
         joblib.dump(X_train, os.path.join(artifacts_path, 'data_train.joblib'))
-        joblib.dump(X_test, os.path.join(artifacts_path, 'data_test.joblib'))
         joblib.dump(y_train, os.path.join(artifacts_path,
                                           'labels_train.joblib'))
-        joblib.dump(y_test, os.path.join(artifacts_path, 'labels_test.joblib'))
+        joblib.dump(test, os.path.join(artifacts_path, "test.joblib"))
 
     except FileNotFoundError:
         logger.error("Provided file path is not valid or file does not exist!")
@@ -174,12 +171,7 @@ if __name__ == "__main__":
                         default=['salary'],
                         help='List of columns as string to stratify the data.')
 
-    parser.add_argument('-sl', '--slice', type=str,
-                        default=None,
-                        help='Column to perform data slice on')
-
     args = parser.parse_args()
     file_path = args.file
     columns = args.stratify
-    slice_column = args.slice
-    main(file_path, columns, slice_column)
+    main(file_path, columns)

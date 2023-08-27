@@ -16,7 +16,7 @@ def get_payload():
         "age": 50,
         "workclass": "Private",
         "fnlgt": 83311,
-        "education": 14,
+        "education": "Masters",
         "marital_status": "Married-civ-spouse",
         "occupation": "Exec-managerial",
         "relationship": "Husband",
@@ -37,7 +37,7 @@ def get_payload2():
         "age": 10,
         "workclass": "Private",
         "fnlgt": 83311,
-        "education": 14,
+        "education": "Masters",
         "marital_status": "Married-civ-spouse",
         "occupation": "Exec-managerial",
         "relationship": "Husband",
@@ -78,7 +78,7 @@ def test_inference_1(get_payload):
     """
     response = client.post("/predict", json=get_payload)
     assert response.status_code == 200
-    assert response.json()[0] == "prediction is 1"
+    assert response.json() == "Salary >50K"
 
 
 def test_inference_0(get_payload2):
@@ -89,7 +89,7 @@ def test_inference_0(get_payload2):
     """
     response = client.post("/predict", json=get_payload2)
     assert response.status_code == 200
-    assert response.json()[0] == "prediction is 0"
+    assert response.json() == "Salary <50K"
 
 
 def test_inference_invalid_request(get_payload_invalid):

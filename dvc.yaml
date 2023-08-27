@@ -1,20 +1,17 @@
 stages:
   process_data:
-    matrix:
-      strat: [salary, education]
-    cmd: python ml/process_data.py -s ${item.start}
+    cmd: python ml/process_data.py -s ${stratify}
     deps:
       - ./ml/process_data.py
       - ./data/census.csv
     outs:
       - ./artifacts/data_train.joblib
       - ./artifacts/labels_train.joblib
-      - ./artifacts/data_test.joblib
-      - ./artifacts/labels_test.joblib
+      - ./artifacts/test.joblib
       - ./artifacts/category_encoder.joblib
 
   train:
-    cmd: python ml/train_model.py -c ${item.clss}
+    cmd: python ml/train_model.py -c ${model}
     deps:
       - ./ml/train_model.py
       - ./ml/model.py
@@ -22,16 +19,23 @@ stages:
       - ./artifacts/labels_train.joblib
       - ./artifacts/category_encoder.joblib
     outs:
-      - ./artifacts/model-${item.clss}.pkl
+      - ./artifacts/model.pkl
     metrics:
-      - ./artifacts/metrics_train-${item.clss}.json
+      - ./artifacts/metrics_train.json
 
   evaluate:
     cmd: python ml/evaluate.py
     deps:
-      - ./artifacts/data_test.joblib
-      - ./artifacts/labels_test.joblib
+      - ./artifacts/test.joblib
       - ./ml/evaluate.py
       - ./ml/model.py
     metrics:
       - ./artifacts/metrics_evaluate.json
+
+  slice_experiment:
+    cmd: python ml/slice_experiment.py -s ${stratify}
+    deps:
+      - ./ml/slice_experiment.py
+      - ./ml/process_data.py
+    outs:
+      - ./artifacts/test_output.txt

@@ -1,36 +1,36 @@
 schema: '2.0'
 stages:
   train:
-    cmd: python ml/train_model.py -c RF
+    cmd: python ml/train_model.py -c LR
     deps:
     - path: ./artifacts/category_encoder.joblib
       hash: md5
-      md5: 700e2befc2d5220c3af5146e70b7a6e4
-      size: 4214
+      md5: 705ed5fbc942863fae0172e8181d5c8f
+      size: 4501
     - path: ./artifacts/data_train.joblib
       hash: md5
-      md5: 9ce5b9dbce230e60320236991cf81850
-      size: 22281049
+      md5: df63cd23f1014a548b8bec6c183aedf7
+      size: 23673761
     - path: ./artifacts/labels_train.joblib
       hash: md5
-      md5: 508aa8b2369561b7c5412a552994ff50
-      size: 208457
+      md5: 7a4fcc355dc15756157a53e12855418c
+      size: 221473
     - path: ./ml/model.py
       hash: md5
-      md5: f644c4381c708d1a528721c13a89004f
-      size: 3590
+      md5: 9e385e82bc038fd65121ccb9963e3596
+      size: 4989
     - path: ./ml/train_model.py
       hash: md5
-      md5: ad7f123a724bc53d3cd82efa6c9a8ac3
-      size: 2280
+      md5: 325f401270aa901d396143ab3509c9a4
+      size: 2304
     outs:
     - path: ./artifacts/metrics_train.json
       hash: md5
-      md5: 0ddd89b610e96e5a80042a787deafd91
-      size: 111
+      md5: a90cc70c4e7aba6eceb0f913057201bb
+      size: 149
     - path: ./artifacts/model.pkl
       hash: md5
-      md5: ae4398639ac39001d31bf329f34a1ade
+      md5: 9933846998a2cf4188f5df7db959caf2
       size: 1711
   process_date:
     cmd: python ml/process_data
@@ -69,7 +69,7 @@ stages:
       md5: f351d751767114422443d5c6581af59e
       size: 208457
   process_data:
-    cmd: python ml/process_data.py -s salary relationship
+    cmd: python ml/process_data.py -s salary native-country
     deps:
     - path: ./data/census.csv
       hash: md5
@@ -77,50 +77,90 @@ stages:
       size: 3974474
     - path: ./ml/process_data.py
       hash: md5
-      md5: 21cf6afbc0ba9f8c85f53c54edbd4a54
-      size: 5434
+      md5: cfe44211c1f68c077cc4a793f364a9b7
+      size: 5309
     outs:
     - path: ./artifacts/category_encoder.joblib
       hash: md5
-      md5: 700e2befc2d5220c3af5146e70b7a6e4
-      size: 4214
-    - path: ./artifacts/data_test.joblib
-      hash: md5
-      md5: 1742a7d98a41e61dc5d37fa2efa5e38f
-      size: 5571073
+      md5: 705ed5fbc942863fae0172e8181d5c8f
+      size: 4501
     - path: ./artifacts/data_train.joblib
       hash: md5
-      md5: 9ce5b9dbce230e60320236991cf81850
-      size: 22281049
-    - path: ./artifacts/labels_test.joblib
-      hash: md5
-      md5: 3dec37c14434efa498d9f84a0de24547
-      size: 52289
+      md5: df63cd23f1014a548b8bec6c183aedf7
+      size: 23673761
     - path: ./artifacts/labels_train.joblib
       hash: md5
-      md5: 508aa8b2369561b7c5412a552994ff50
-      size: 208457
+      md5: 7a4fcc355dc15756157a53e12855418c
+      size: 221473
+    - path: ./artifacts/test.joblib
+      hash: md5
+      md5: 6fff10c8c261755d1408524c781c6063
+      size: 1093667
   evaluate:
     cmd: python ml/evaluate.py
     deps:
-    - path: ./artifacts/data_test.joblib
+    - path: ./artifacts/test.joblib
       hash: md5
-      md5: 1742a7d98a41e61dc5d37fa2efa5e38f
-      size: 5571073
-    - path: ./artifacts/labels_test.joblib
-      hash: md5
-      md5: 3dec37c14434efa498d9f84a0de24547
-      size: 52289
+      md5: 6fff10c8c261755d1408524c781c6063
+      size: 1093667
     - path: ./ml/evaluate.py
       hash: md5
-      md5: af22ad50569e67071dd4168a8ce4b605
-      size: 1081
+      md5: dbd19de279fe6fa23ef8dc60e465d7ee
+      size: 1082
     - path: ./ml/model.py
       hash: md5
-      md5: f644c4381c708d1a528721c13a89004f
-      size: 3590
+      md5: 9e385e82bc038fd65121ccb9963e3596
+      size: 4989
     outs:
     - path: ./artifacts/metrics_evaluate.json
       hash: md5
-      md5: aaa52a2bde2d03dfdcecc93f14db050f
-      size: 110
+      md5: 73867e8c20fc9d62909c49771a482596
+      size: 151
+  train@LR:
+    cmd: python ml/train_model.py -c LR
+    deps:
+    - path: ./artifacts/category_encoder.joblib
+      hash: md5
+      md5: 705ed5fbc942863fae0172e8181d5c8f
+      size: 4501
+    - path: ./artifacts/data_train.joblib
+      hash: md5
+      md5: df63cd23f1014a548b8bec6c183aedf7
+      size: 23673761
+    - path: ./artifacts/labels_train.joblib
+      hash: md5
+      md5: 7a4fcc355dc15756157a53e12855418c
+      size: 221473
+    - path: ./ml/model.py
+      hash: md5
+      md5: 7d89f393fda80203764d8cbf3c9889f0
+      size: 4997
+    - path: ./ml/train_model.py
+      hash: md5
+      md5: 325f401270aa901d396143ab3509c9a4
+      size: 2304
+    outs:
+    - path: ./artifacts/metrics_train.json
+      hash: md5
+      md5: a90cc70c4e7aba6eceb0f913057201bb
+      size: 149
+    - path: ./artifacts/model.pkl
+      hash: md5
+      md5: 9933846998a2cf4188f5df7db959caf2
+      size: 1711
+  slice_experiment:
+    cmd: python ml/slice_experiment.py -s salary native-country
+    deps:
+    - path: ./ml/process_data.py
+      hash: md5
+      md5: cfe44211c1f68c077cc4a793f364a9b7
+      size: 5309
+    - path: ./ml/slice_experiment.py
+      hash: md5
+      md5: 0b539804da1965b9a4b1dea5cc341512
+      size: 2417
+    outs:
+    - path: ./artifacts/test_output.txt
+      hash: md5
+      md5: c4cc4580220c4c3e669741634f9c7b88
+      size: 11894

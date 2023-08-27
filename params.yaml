@@ -1,7 +1,6 @@
 # path related constants
 artifacts-path: ./artifacts/
 logfile-path: ./logs/application.logs
-
-# below parameters can be used to run different experiments 
-model: [RF, LR]
-stratify: salary relationship
+# experiment paramters
+model: LR
+stratify: salary native-country

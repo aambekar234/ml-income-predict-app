@@ -33,6 +33,27 @@ class PredictionRequest(BaseModel):
     hours_per_week: int
     native_country: str
 
+    model_config = {
+        "json_schema_extra": {
+            "examples": [
+                {
+                    "age": 50,
+                    "workclass": "Private",
+                    "fnlgt": 83311,
+                    "education": "Masters",
+                    "marital_status": "Married-civ-spouse",
+                    "occupation": "Exec-managerial",
+                    "relationship": "Husband",
+                    "race": "White",
+                    "sex": "Male",
+                    "capital_gain": 14084,
+                    "capital_loss": 0,
+                    "hours_per_week": 80,
+                    "native_country": "United-States"}
+            ]
+        }
+    }
+
 
 # Instantiate your model
 model = joblib.load(os.path.join(artifacts_path, 'model.pkl'))
@@ -70,13 +91,15 @@ def predict(request: PredictionRequest):
              'hours-per-week': [request.hours_per_week],
              'native-country': [request.native_country]})
 
-        X, y = process_data(df, label=None, inference=True)
+        X, y = process_data(df, label=None)
 
         # Perform the model inference
         prediction = model.predict(X)
         logger.info(f"Prediction is {prediction}")
         # Return the prediction
-        return {f"prediction is {prediction[0]}"}
+        if prediction[0] == 1:
+            return "Salary >50K"
+        return "Salary <50K"
 
     except Exception as e:
         logger.error(str(e))
