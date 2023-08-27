@@ -37,6 +37,8 @@ jobs:
 
     - name: Run pytest
       run: |
+        conda env list
+        pwd
         pytest -v
 
     - name: Package the app in tar file
