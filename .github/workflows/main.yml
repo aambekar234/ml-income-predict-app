@@ -37,7 +37,7 @@ jobs:
 
     - name: Run pytest
       run: |
-        pytest
+        pytest -v
 
     - name: Package the app in tar file
       run: tar -cvf app.tar ./
