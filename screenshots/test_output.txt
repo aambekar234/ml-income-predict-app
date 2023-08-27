@@ -1,0 +1,306 @@
+Model: LR, slice column: workclass, value:  State-gov
+Accuracy 0.797, Precision 0.706, recall 0.267, fbeta 0.387
+
+Model: LR, slice column: workclass, value:  Self-emp-not-inc
+Accuracy 0.797, Precision 0.706, recall 0.267, fbeta 0.387
+
+Model: LR, slice column: workclass, value:  Private
+Accuracy 0.797, Precision 0.706, recall 0.267, fbeta 0.387
+
+Model: LR, slice column: workclass, value:  Federal-gov
+Accuracy 0.797, Precision 0.706, recall 0.267, fbeta 0.387
+
+Model: LR, slice column: workclass, value:  Local-gov
+Accuracy 0.797, Precision 0.706, recall 0.267, fbeta 0.387
+
+Model: LR, slice column: workclass, value:  ?
+Accuracy 0.797, Precision 0.706, recall 0.267, fbeta 0.387
+
+Model: LR, slice column: workclass, value:  Self-emp-inc
+Accuracy 0.797, Precision 0.706, recall 0.267, fbeta 0.387
+
+Model: LR, slice column: workclass, value:  Without-pay
+Accuracy 0.797, Precision 0.706, recall 0.267, fbeta 0.387
+
+Model: LR, slice column: workclass, value:  Never-worked
+Accuracy 0.797, Precision 0.706, recall 0.267, fbeta 0.387
+
+Model: LR, slice column: marital-status, value:  Never-married
+Accuracy 0.797, Precision 0.706, recall 0.267, fbeta 0.387
+
+Model: LR, slice column: marital-status, value:  Married-civ-spouse
+Accuracy 0.797, Precision 0.706, recall 0.267, fbeta 0.387
+
+Model: LR, slice column: marital-status, value:  Divorced
+Accuracy 0.797, Precision 0.706, recall 0.267, fbeta 0.387
+
+Model: LR, slice column: marital-status, value:  Married-spouse-absent
+Accuracy 0.797, Precision 0.706, recall 0.267, fbeta 0.387
+
+Model: LR, slice column: marital-status, value:  Separated
+Accuracy 0.797, Precision 0.706, recall 0.267, fbeta 0.387
+
+Model: LR, slice column: marital-status, value:  Married-AF-spouse
+Accuracy 0.797, Precision 0.706, recall 0.267, fbeta 0.387
+
+Model: LR, slice column: marital-status, value:  Widowed
+Accuracy 0.797, Precision 0.706, recall 0.267, fbeta 0.387
+
+Model: LR, slice column: occupation, value:  Adm-clerical
+Accuracy 0.797, Precision 0.706, recall 0.267, fbeta 0.387
+
+Model: LR, slice column: occupation, value:  Exec-managerial
+Accuracy 0.797, Precision 0.706, recall 0.267, fbeta 0.387
+
+Model: LR, slice column: occupation, value:  Handlers-cleaners
+Accuracy 0.797, Precision 0.706, recall 0.267, fbeta 0.387
+
+Model: LR, slice column: occupation, value:  Prof-specialty
+Accuracy 0.797, Precision 0.706, recall 0.267, fbeta 0.387
+
+Model: LR, slice column: occupation, value:  Other-service
+Accuracy 0.797, Precision 0.706, recall 0.267, fbeta 0.387
+
+Model: LR, slice column: occupation, value:  Sales
+Accuracy 0.797, Precision 0.706, recall 0.267, fbeta 0.387
+
+Model: LR, slice column: occupation, value:  Craft-repair
+Accuracy 0.797, Precision 0.706, recall 0.267, fbeta 0.387
+
+Model: LR, slice column: occupation, value:  Transport-moving
+Accuracy 0.797, Precision 0.706, recall 0.267, fbeta 0.387
+
+Model: LR, slice column: occupation, value:  Farming-fishing
+Accuracy 0.797, Precision 0.706, recall 0.267, fbeta 0.387
+
+Model: LR, slice column: occupation, value:  Machine-op-inspct
+Accuracy 0.797, Precision 0.706, recall 0.267, fbeta 0.387
+
+Model: LR, slice column: occupation, value:  Tech-support
+Accuracy 0.797, Precision 0.706, recall 0.267, fbeta 0.387
+
+Model: LR, slice column: occupation, value:  ?
+Accuracy 0.797, Precision 0.706, recall 0.267, fbeta 0.387
+
+Model: LR, slice column: occupation, value:  Protective-serv
+Accuracy 0.797, Precision 0.706, recall 0.267, fbeta 0.387
+
+Model: LR, slice column: occupation, value:  Armed-Forces
+Accuracy 0.797, Precision 0.706, recall 0.267, fbeta 0.387
+
+Model: LR, slice column: occupation, value:  Priv-house-serv
+Accuracy 0.797, Precision 0.706, recall 0.267, fbeta 0.387
+
+Model: LR, slice column: relationship, value:  Not-in-family
+Accuracy 0.797, Precision 0.706, recall 0.267, fbeta 0.387
+
+Model: LR, slice column: relationship, value:  Husband
+Accuracy 0.797, Precision 0.706, recall 0.267, fbeta 0.387
+
+Model: LR, slice column: relationship, value:  Wife
+Accuracy 0.797, Precision 0.706, recall 0.267, fbeta 0.387
+
+Model: LR, slice column: relationship, value:  Own-child
+Accuracy 0.797, Precision 0.706, recall 0.267, fbeta 0.387
+
+Model: LR, slice column: relationship, value:  Unmarried
+Accuracy 0.797, Precision 0.706, recall 0.267, fbeta 0.387
+
+Model: LR, slice column: relationship, value:  Other-relative
+Accuracy 0.797, Precision 0.706, recall 0.267, fbeta 0.387
+
+Model: LR, slice column: race, value:  White
+Accuracy 0.797, Precision 0.706, recall 0.267, fbeta 0.387
+
+Model: LR, slice column: race, value:  Black
+Accuracy 0.797, Precision 0.706, recall 0.267, fbeta 0.387
+
+Model: LR, slice column: race, value:  Asian-Pac-Islander
+Accuracy 0.797, Precision 0.706, recall 0.267, fbeta 0.387
+
+Model: LR, slice column: race, value:  Amer-Indian-Eskimo
+Accuracy 0.797, Precision 0.706, recall 0.267, fbeta 0.387
+
+Model: LR, slice column: race, value:  Other
+Accuracy 0.797, Precision 0.706, recall 0.267, fbeta 0.387
+
+Model: LR, slice column: sex, value:  Male
+Accuracy 0.797, Precision 0.706, recall 0.267, fbeta 0.387
+
+Model: LR, slice column: sex, value:  Female
+Accuracy 0.797, Precision 0.706, recall 0.267, fbeta 0.387
+
+Model: LR, slice column: native-country, value:  United-States
+Accuracy 0.797, Precision 0.706, recall 0.267, fbeta 0.387
+
+Model: LR, slice column: native-country, value:  Cuba
+Accuracy 0.797, Precision 0.706, recall 0.267, fbeta 0.387
+
+Model: LR, slice column: native-country, value:  Jamaica
+Accuracy 0.797, Precision 0.706, recall 0.267, fbeta 0.387
+
+Model: LR, slice column: native-country, value:  India
+Accuracy 0.797, Precision 0.706, recall 0.267, fbeta 0.387
+
+Model: LR, slice column: native-country, value:  ?
+Accuracy 0.797, Precision 0.706, recall 0.267, fbeta 0.387
+
+Model: LR, slice column: native-country, value:  Mexico
+Accuracy 0.797, Precision 0.706, recall 0.267, fbeta 0.387
+
+Model: LR, slice column: native-country, value:  South
+Accuracy 0.797, Precision 0.706, recall 0.267, fbeta 0.387
+
+Model: LR, slice column: native-country, value:  Puerto-Rico
+Accuracy 0.797, Precision 0.706, recall 0.267, fbeta 0.387
+
+Model: LR, slice column: native-country, value:  Honduras
+Accuracy 0.797, Precision 0.706, recall 0.267, fbeta 0.387
+
+Model: LR, slice column: native-country, value:  England
+Accuracy 0.797, Precision 0.706, recall 0.267, fbeta 0.387
+
+Model: LR, slice column: native-country, value:  Canada
+Accuracy 0.797, Precision 0.706, recall 0.267, fbeta 0.387
+
+Model: LR, slice column: native-country, value:  Germany
+Accuracy 0.797, Precision 0.706, recall 0.267, fbeta 0.387
+
+Model: LR, slice column: native-country, value:  Iran
+Accuracy 0.797, Precision 0.706, recall 0.267, fbeta 0.387
+
+Model: LR, slice column: native-country, value:  Philippines
+Accuracy 0.797, Precision 0.706, recall 0.267, fbeta 0.387
+
+Model: LR, slice column: native-country, value:  Italy
+Accuracy 0.797, Precision 0.706, recall 0.267, fbeta 0.387
+
+Model: LR, slice column: native-country, value:  Poland
+Accuracy 0.797, Precision 0.706, recall 0.267, fbeta 0.387
+
+Model: LR, slice column: native-country, value:  Columbia
+Accuracy 0.797, Precision 0.706, recall 0.267, fbeta 0.387
+
+Model: LR, slice column: native-country, value:  Cambodia
+Accuracy 0.797, Precision 0.706, recall 0.267, fbeta 0.387
+
+Model: LR, slice column: native-country, value:  Thailand
+Accuracy 0.797, Precision 0.706, recall 0.267, fbeta 0.387
+
+Model: LR, slice column: native-country, value:  Ecuador
+Accuracy 0.797, Precision 0.706, recall 0.267, fbeta 0.387
+
+Model: LR, slice column: native-country, value:  Laos
+Accuracy 0.797, Precision 0.706, recall 0.267, fbeta 0.387
+
+Model: LR, slice column: native-country, value:  Taiwan
+Accuracy 0.797, Precision 0.706, recall 0.267, fbeta 0.387
+
+Model: LR, slice column: native-country, value:  Haiti
+Accuracy 0.797, Precision 0.706, recall 0.267, fbeta 0.387
+
+Model: LR, slice column: native-country, value:  Portugal
+Accuracy 0.797, Precision 0.706, recall 0.267, fbeta 0.387
+
+Model: LR, slice column: native-country, value:  Dominican-Republic
+Accuracy 0.797, Precision 0.706, recall 0.267, fbeta 0.387
+
+Model: LR, slice column: native-country, value:  El-Salvador
+Accuracy 0.797, Precision 0.706, recall 0.267, fbeta 0.387
+
+Model: LR, slice column: native-country, value:  France
+Accuracy 0.797, Precision 0.706, recall 0.267, fbeta 0.387
+
+Model: LR, slice column: native-country, value:  Guatemala
+Accuracy 0.797, Precision 0.706, recall 0.267, fbeta 0.387
+
+Model: LR, slice column: native-country, value:  China
+Accuracy 0.797, Precision 0.706, recall 0.267, fbeta 0.387
+
+Model: LR, slice column: native-country, value:  Japan
+Accuracy 0.797, Precision 0.706, recall 0.267, fbeta 0.387
+
+Model: LR, slice column: native-country, value:  Yugoslavia
+Accuracy 0.797, Precision 0.706, recall 0.267, fbeta 0.387
+
+Model: LR, slice column: native-country, value:  Peru
+Accuracy 0.797, Precision 0.706, recall 0.267, fbeta 0.387
+
+Model: LR, slice column: native-country, value:  Outlying-US(Guam-USVI-etc)
+Accuracy 0.797, Precision 0.706, recall 0.267, fbeta 0.387
+
+Model: LR, slice column: native-country, value:  Scotland
+Accuracy 0.797, Precision 0.706, recall 0.267, fbeta 0.387
+
+Model: LR, slice column: native-country, value:  Trinadad&Tobago
+Accuracy 0.797, Precision 0.706, recall 0.267, fbeta 0.387
+
+Model: LR, slice column: native-country, value:  Greece
+Accuracy 0.797, Precision 0.706, recall 0.267, fbeta 0.387
+
+Model: LR, slice column: native-country, value:  Nicaragua
+Accuracy 0.797, Precision 0.706, recall 0.267, fbeta 0.387
+
+Model: LR, slice column: native-country, value:  Vietnam
+Accuracy 0.797, Precision 0.706, recall 0.267, fbeta 0.387
+
+Model: LR, slice column: native-country, value:  Hong
+Accuracy 0.797, Precision 0.706, recall 0.267, fbeta 0.387
+
+Model: LR, slice column: native-country, value:  Ireland
+Accuracy 0.797, Precision 0.706, recall 0.267, fbeta 0.387
+
+Model: LR, slice column: native-country, value:  Hungary
+Accuracy 0.797, Precision 0.706, recall 0.267, fbeta 0.387
+
+Model: LR, slice column: native-country, value:  Holand-Netherlands
+Accuracy 0.797, Precision 0.706, recall 0.267, fbeta 0.387
+
+Model: LR, slice column: education, value:  Bachelors
+Accuracy 0.797, Precision 0.706, recall 0.267, fbeta 0.387
+
+Model: LR, slice column: education, value:  HS-grad
+Accuracy 0.797, Precision 0.706, recall 0.267, fbeta 0.387
+
+Model: LR, slice column: education, value:  11th
+Accuracy 0.797, Precision 0.706, recall 0.267, fbeta 0.387
+
+Model: LR, slice column: education, value:  Masters
+Accuracy 0.797, Precision 0.706, recall 0.267, fbeta 0.387
+
+Model: LR, slice column: education, value:  9th
+Accuracy 0.797, Precision 0.706, recall 0.267, fbeta 0.387
+
+Model: LR, slice column: education, value:  Some-college
+Accuracy 0.797, Precision 0.706, recall 0.267, fbeta 0.387
+
+Model: LR, slice column: education, value:  Assoc-acdm
+Accuracy 0.797, Precision 0.706, recall 0.267, fbeta 0.387
+
+Model: LR, slice column: education, value:  Assoc-voc
+Accuracy 0.797, Precision 0.706, recall 0.267, fbeta 0.387
+
+Model: LR, slice column: education, value:  7th-8th
+Accuracy 0.797, Precision 0.706, recall 0.267, fbeta 0.387
+
+Model: LR, slice column: education, value:  Doctorate
+Accuracy 0.797, Precision 0.706, recall 0.267, fbeta 0.387
+
+Model: LR, slice column: education, value:  Prof-school
+Accuracy 0.797, Precision 0.706, recall 0.267, fbeta 0.387
+
+Model: LR, slice column: education, value:  5th-6th
+Accuracy 0.797, Precision 0.706, recall 0.267, fbeta 0.387
+
+Model: LR, slice column: education, value:  10th
+Accuracy 0.797, Precision 0.706, recall 0.267, fbeta 0.387
+
+Model: LR, slice column: education, value:  1st-4th
+Accuracy 0.797, Precision 0.706, recall 0.267, fbeta 0.387
+
+Model: LR, slice column: education, value:  Preschool
+Accuracy 0.797, Precision 0.706, recall 0.267, fbeta 0.387
+
+Model: LR, slice column: education, value:  12th
+Accuracy 0.797, Precision 0.706, recall 0.267, fbeta 0.387
+
