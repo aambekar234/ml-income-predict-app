@@ -37,9 +37,9 @@ jobs:
 
     - name: Run pytest
       run: |
+        conda init bash
+        . /github/home/.bashrc
         conda activate base-ml-py3.8
-        conda env list
-        pwd
         pytest -v
 
     - name: Package the app in tar file
