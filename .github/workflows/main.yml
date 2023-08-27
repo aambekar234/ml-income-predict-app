@@ -37,6 +37,7 @@ jobs:
 
     - name: Run pytest
       run: |
+        conda activate base-ml-py3.8
         conda env list
         pwd
         pytest -v
