@@ -86,6 +86,7 @@ def load_data():
     file_path = './data/census.csv'
     columns = ['salary']
     prd.main(file_path, columns)
+    yield
 
 
 @pytest.fixture
@@ -98,7 +99,8 @@ def train_model(load_data):
     trm.main("LR")
     return joblib.load("./artifacts/model.pkl")
 
-def test_process_data(load_data):
+
+def test_process_data():
     """Unit test case for process data script
 
     Args:
@@ -114,12 +116,28 @@ def test_process_data(load_data):
         assert os.path.exists(artifact)
 
 
+def test_is_fitted(train_model):
+    """Unit test to cehk the model is fitted or not
+
+    Args:
+        train_model: ficture function which trains and returns the model
+
+    Raises:
+        AssertionError: Raises error if model is not fitted
+    """
+    try:
+        check_is_fitted(train_model)
+    except AssertionError:
+        raise AssertionError
+
+
 def test_train_model(train_model):
     """Unit test case for train model script
 
     Args:
         train_model: fixture function to train the model
     """
+    check_is_fitted(train_model)
     artifacts_list = [
         "./artifacts/model.pkl",
         "./artifacts/metrics_train.json"]
@@ -132,6 +150,7 @@ def test_evaluate(train_model):
     Args:
         train_model: fixture function to train the model
     """
+    check_is_fitted(train_model)
     artifacts_list = ["./artifacts/metrics_evaluate.json"]
     evl.evaluate()
     for artifact in artifacts_list:
@@ -146,17 +165,3 @@ def test_encoder(get_dataframe1, get_dataframe2):
     X1, y2 = process_data(get_dataframe1)
     X2, y2 = process_data(get_dataframe2)
     assert not np.array_equal(X1, X2)
-
-def test_is_fitted(train_model):
-    """Unit test to cehk the model is fitted or not
-
-    Args:
-        train_model: ficture function which trains and returns the model
-
-    Raises:
-        AssertionError: Raises error if model is not fitted
-    """
-    try:
-        check_is_fitted(train_model)
-    except:
-        raise AssertionError
